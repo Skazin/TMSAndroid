@@ -16,8 +16,10 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewBinding.recyclerView.adapter = CustomRecyclerAdapter(viewModel.notes)
+        viewBinding.buttonToAdd.setOnClickListener {
+            viewModel.notes.add(Note(viewBinding.textForAdding.text.toString()))
+        }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

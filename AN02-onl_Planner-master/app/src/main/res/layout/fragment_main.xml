@@ -17,19 +17,15 @@
         app:title="Мини-справочник"
         app:titleTextColor="@color/white" />
 
-    <TextView
+    <EditText
         android:id="@+id/textForAdding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_margin="12dp"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:text="Text for adding." />
+        tools:text="Бла бла"/>
 
     <Button
         android:id="@+id/buttonToAdd"
