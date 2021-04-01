@@ -33,5 +33,4 @@ class CustomRecyclerAdapter (private val values: List<Note>) :
             smallTextView.text = item.group
         }
     }
-
-    }
+}

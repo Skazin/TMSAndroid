@@ -4,7 +4,7 @@ import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
 
 class MainViewModel : CoroutineViewModel() {
 
-    val notes = listOf(
+    val notes = mutableListOf(
         Note("Амброксол", "Отхаркивающее"),
         Note("Диклофенак", "НПВС"),
         Note("Кетопрофен", "НПВС"),
