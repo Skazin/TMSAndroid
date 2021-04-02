@@ -16,9 +16,11 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewBinding.recyclerView.adapter = CustomRecyclerAdapter(viewModel.notes)
+        viewModel.listLiveData.observe(this.viewLifecycleOwner, {
+            viewBinding.recyclerView.adapter = CustomRecyclerAdapter(it)
+        })
         viewBinding.buttonToAdd.setOnClickListener {
-            viewModel.notes.add(Note(viewBinding.textForAdding.text.toString()))
+            viewModel.adding(viewBinding.textForAdding.text.toString())
         }
     }
 
