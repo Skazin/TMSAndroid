@@ -20,10 +20,10 @@ class MainViewModel : CoroutineViewModel() {
     )
 
 
-    fun adding(text: String) {
+    fun adding(text: String, date: String? = null) {
         launch {
             val list = listLiveData.value!!.toMutableList()
-            list.add(0, Note(text))
+            list.add(0, Note(text, date))
             listLiveData.postValue(list)
         }
     }
