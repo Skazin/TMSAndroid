@@ -24,15 +24,26 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/toNewFragment"
-            app:destination="@+id/newFragment" />
+            app:destination="@+id/newFragment"/>
+        <action
+            android:id="@+id/toEditFragment"
+            app:destination="@+id/editFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/newFragment"
         android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragment"
         android:label="NewFragment"
-        tools:layout="@layout/add_new_text" />
+        tools:layout="@layout/add_new_text"/>
 
-
-
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragment"
+        android:label="EditFragment"
+        tools:layout="@layout/edit_card">
+        <argument
+            android:name="note"
+            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.Note"
+            app:nullable="true" />
+    </fragment>
 </navigation>
