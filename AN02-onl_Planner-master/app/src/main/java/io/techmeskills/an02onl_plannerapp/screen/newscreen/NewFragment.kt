@@ -1,6 +1,5 @@
 package io.techmeskills.an02onl_plannerapp.screen.newscreen
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
@@ -11,26 +10,28 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.AddNewTextBinding
+import io.techmeskills.an02onl_plannerapp.screen.main.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
-import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class NewFragment : NavigationFragment<AddNewTextBinding>(R.layout.add_new_text) {
     override val viewBinding: AddNewTextBinding by viewBinding()
-    private val viewModel: AddNewViewModel by viewModel()
+    private val calendar = Calendar.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewBinding.datePicker.init(2021, 3,3, DatePicker.OnDateChangedListener {
+        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH), DatePicker.OnDateChangedListener() {
             view, year, monthOfYear, dayOfMonth ->
 
         })
 
-        viewBinding.btnConfirm.setOnClickListener {
+        viewBinding.addButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {
                 setFragmentResult(ADD_NEW_RESULT, Bundle().apply {
-                    putString(TEXT, viewBinding.etNote.text.toString())
-                    putString(DATE, "${viewBinding.datePicker.dayOfMonth}.${viewBinding.datePicker.month + 1}.${viewBinding.datePicker.year}")
+                    putParcelable(NOTE, Note(-1,
+                            viewBinding.etNote.text.toString(),
+                            "${viewBinding.datePicker.dayOfMonth}.${viewBinding.datePicker.month + 1}.${viewBinding.datePicker.year}"))
                 })
                 findNavController().popBackStack()
             } else {
@@ -53,7 +54,6 @@ class NewFragment : NavigationFragment<AddNewTextBinding>(R.layout.add_new_text)
 
     companion object {
         const val ADD_NEW_RESULT = "ADD_NEW_RESULT"
-        const val TEXT = "TEXT"
-        const val DATE = "DATE"
+        const val NOTE = "NOTE"
     }
 }

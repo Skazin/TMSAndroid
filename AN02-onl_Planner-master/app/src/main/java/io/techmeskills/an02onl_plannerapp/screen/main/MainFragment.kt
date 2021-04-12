@@ -5,9 +5,12 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
+import io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragment
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragment
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
@@ -20,18 +23,42 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     private val viewModel: MainViewModel by viewModel()
 
+    private val adapter = MyRecyclerAdapter(
+            onClick = { note ->
+                findNavController().navigateSafe(MainFragmentDirections.toEditFragment(note))
+            },
+            onDelete = {
+                viewModel.deleteNote(it)
+            }
+    )
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.listLiveData.observe(this.viewLifecycleOwner, {
-            viewBinding.recyclerView.adapter = CustomRecyclerAdapter(it)
-        })
+            viewBinding.recyclerView.adapter = adapter
+            viewModel.listLiveData.observe(this.viewLifecycleOwner) {
+                adapter.submitList(it)
+            }
+
+        val swipeHandler = object : SwipeToDeleteCallback() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.swipeDelete(viewHolder.adapterPosition)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
+
 
         setFragmentResultListener(NewFragment.ADD_NEW_RESULT) { key, bundle ->
-            val note = bundle.getString(NewFragment.TEXT)
-            val date = bundle.getString(NewFragment.DATE)
-            note?.let {
-                viewModel.adding(it, date)
+            bundle.getParcelable<Note>(NewFragment.NOTE)?.let {
+                viewModel.adding(it)
+            }
+        }
+
+        setFragmentResultListener(EditFragment.EDIT_RESULT) { key, bundle ->
+            bundle.getParcelable<Note>(NewFragment.NOTE)?.let {
+                viewModel.edit(it)
             }
         }
 
