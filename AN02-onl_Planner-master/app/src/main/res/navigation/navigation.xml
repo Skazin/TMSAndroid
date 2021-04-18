@@ -3,19 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@+id/splashFragment">
-
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.splash.SplashFragment"
-        android:label="SplashFragment"
-        tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/toMainFragment"
-            app:destination="@+id/mainFragment"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@+id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -43,7 +31,7 @@
         tools:layout="@layout/edit_card">
         <argument
             android:name="note"
-            app:argType="io.techmeskills.an02onl_plannerapp.screen.main.Note"
+            app:argType="io.techmeskills.an02onl_plannerapp.models.Note"
             app:nullable="true" />
     </fragment>
 </navigation>

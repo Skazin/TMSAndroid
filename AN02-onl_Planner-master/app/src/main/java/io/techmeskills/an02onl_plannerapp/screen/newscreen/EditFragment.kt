@@ -5,14 +5,15 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.EditCardBinding
-import io.techmeskills.an02onl_plannerapp.screen.main.Note
+import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
+import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +23,7 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
     override val viewBinding: EditCardBinding by viewBinding()
     private val calendar = Calendar.getInstance()
     private val args: EditFragmentArgs by navArgs()
+    private val viewModel: EditFragmentViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -32,22 +34,18 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
 
         viewBinding.editButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {
-                setFragmentResult(EDIT_RESULT, Bundle().apply {
-                    putParcelable(NOTE, Note(
-                            if (args.note == null) -1 else args.note!!.id,
-                            viewBinding.etNote.text.toString(),
-                            dateFormatter.format(viewBinding.datePicker.getSelectedDate())))
-                })
+                viewModel.updateNote(
+                    Note(
+                        id = if (args.note == null) -1 else args.note!!.id,
+                        title = viewBinding.etNote.text.toString(),
+                        date = dateFormatter.format(viewBinding.datePicker.getSelectedDate())
+                    )
+                )
                 findNavController().popBackStack()
             } else {
                 Toast.makeText(requireContext(), " Please, enter your note", Toast.LENGTH_LONG)
-                        .show()
+                    .show()
             }
-        }
-
-        args.note?.let { note ->
-            viewBinding.etNote.setText(note.title)
-            viewBinding.datePicker.setSelectedDate(note.date)
         }
     }
 
@@ -77,7 +75,8 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        viewBinding.toolbar.setPadding(0, top, 0, 0)
+        viewBinding.toolbar.setVerticalMargin(marginTop = top)
+        viewBinding.editButton.setVerticalMargin(marginBottom = bottom * 11 / 10)
     }
 
     override val backPressedCallback: OnBackPressedCallback
@@ -86,9 +85,4 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
                 findNavController().popBackStack()
             }
         }
-
-    companion object {
-        const val EDIT_RESULT = "EDIT_RESULT"
-        const val NOTE = "NOTE"
-    }
 }
