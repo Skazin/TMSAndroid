@@ -2,6 +2,10 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
+import android.graphics.drawable.shapes.Shape
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,23 +13,40 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import io.techmeskills.an02onl_plannerapp.R
+import io.techmeskills.an02onl_plannerapp.models.Note
+import io.techmeskills.an02onl_plannerapp.R.drawable.delete_background
 
 class MyRecyclerAdapter(
-        private val onClick: (Note) -> Unit,
-        private val onDelete: (Int) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<Note, MyRecyclerAdapter.MyViewHolder>(NoteAdapterDiffCallback()) {
+    private val onClick: (Note) -> Unit,
+    private val onDelete: (Note) -> Unit,
+    private val onAddNew: () -> Unit
+) : ListAdapter<Note, RecyclerView.ViewHolder>(NoteAdapterDiffCallback()) {
 
     override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-    ) = MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false),
-            ::onCardClick, onDelete
-    )
+    ) : RecyclerView.ViewHolder = when (viewType) {
+        ADD_NEW_VIEW_TYPE -> AddNewViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item_add, parent, false),
+            onAddNew)
+        else -> NoteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false),
+            ::onCardClick,
+            ::swipeDelete)
+    }
 
-    override fun onBindViewHolder(holder: MyRecyclerAdapter.MyViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is AddNewNote -> ADD_NEW_VIEW_TYPE
+            else -> NOTE_VIEW_TYPE
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is NoteViewHolder -> holder.bind(getItem(position))
+            else -> (holder as AddNewViewHolder).bind()
+        }
     }
 
 
@@ -34,11 +55,11 @@ class MyRecyclerAdapter(
     }
 
     fun swipeDelete(position: Int) {
-        onDelete(position)
+        onDelete(getItem(position))
     }
 
 
-    inner class MyViewHolder(itemView: View, private val onCardClick: (Int) -> Unit, private val onCardDelete: (Int) -> Unit) :
+    inner class NoteViewHolder(itemView: View, private val onCardClick: (Int) -> Unit, private val onCardDelete: (Int) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         private val largeTextView: TextView = itemView.findViewById(R.id.textViewLarge)
         private val smallTextView: TextView = itemView.findViewById(R.id.textViewSmall)
@@ -53,6 +74,25 @@ class MyRecyclerAdapter(
             largeTextView.text = item.title
             smallTextView.text = item.date
         }
+    }
+
+    inner class AddNewViewHolder(
+        itemView: View,
+        private val onItemClick: () -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick()
+            }
+        }
+
+        fun bind() = Unit
+    }
+
+    companion object {
+        const val ADD_NEW_VIEW_TYPE = 322
+        const val NOTE_VIEW_TYPE = 111
     }
 }
 
@@ -70,6 +110,7 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
 
     private val background = ColorDrawable(Color.RED)
 
+
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             return false
         }
@@ -83,8 +124,6 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
         ) {
 
             val itemView = viewHolder.itemView
-
-
             background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
             background.draw(c)
 
