@@ -34,13 +34,13 @@ class NewFragment : NavigationFragment<AddNewTextBinding>(R.layout.add_new_text)
             if (viewBinding.etNote.text.isNotBlank()) {
                 viewModel.addNewNote(
                     Note(
-                    title = viewBinding.etNote.text.toString(),
-                    date = dateFormatter.format(viewBinding.datePicker.getSelectedDate())
+                            title = viewBinding.etNote.text.toString(),
+                            date = dateFormatter.format(viewBinding.datePicker.getSelectedDate())
                     )
                 )
                 findNavController().popBackStack()
             } else {
-                Toast.makeText(requireContext(), " Please, enter your note", Toast.LENGTH_LONG)
+                Toast.makeText(requireContext(), "Please, enter your note", Toast.LENGTH_LONG)
                         .show()
             }
         }

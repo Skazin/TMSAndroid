@@ -106,10 +106,7 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
     }
 }
 
-abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-
-    private val background = ColorDrawable(Color.RED)
-
+open class SwipeToDeleteCallback(private val background: Drawable?) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             return false
@@ -124,8 +121,8 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
         ) {
 
             val itemView = viewHolder.itemView
-            background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
-            background.draw(c)
+            background?.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+            background?.draw(c)
 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }

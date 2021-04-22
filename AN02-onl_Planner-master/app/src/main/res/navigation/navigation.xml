@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@+id/mainFragment">
+    app:startDestination="@+id/loginFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -16,6 +16,9 @@
         <action
             android:id="@+id/toEditFragment"
             app:destination="@+id/editFragment" />
+        <action
+            android:id="@+id/toLoginFragment"
+            app:destination="@+id/loginFragment"/>
     </fragment>
 
     <fragment
@@ -34,4 +37,14 @@
             app:argType="io.techmeskills.an02onl_plannerapp.models.Note"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.loginscreen.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/toMainFragment"
+            app:destination="@+id/mainFragment"
+        /></fragment>
+
 </navigation>

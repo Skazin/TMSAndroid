@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Ницерголин" />
+            tools:text="Заметка" />
 
         <TextView
             android:id="@+id/textViewSmall"
@@ -40,7 +40,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Альфа-адреноблокатор" />
+            tools:text="Дата" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

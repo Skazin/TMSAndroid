@@ -15,44 +15,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Edit note"
+        app:title="Hello"
         app:titleTextColor="@color/white" />
 
-    <EditText
-        android:id="@+id/etNote"
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/etLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        tools:text="Введите логин" />
+
+    <AutoCompleteTextView
+        android:id="@+id/etLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/white"
-        android:elevation="4dp"
-        android:hint="@string/enter_your_note"
+        android:layout_marginHorizontal="32dp"
+        android:hint="@string/enter_user_name"
         android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout_editor_absoluteX="128dp"
-        tools:layout_editor_absoluteY="226dp" />
-
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:datePickerMode="spinner"
-        android:calendarViewShown= "false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNote"
-        android:layout_centerHorizontal="true" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".35" />
 
     <Button
-        android:id="@+id/editButton"
+        android:id="@+id/btConfirm"
+        style="@style/ButtonTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
+        android:elevation="8dp"
         android:paddingVertical="12dp"
-        android:text="@string/edit"
-        app:layout_constraintEnd_toEndOf="@+id/datePicker"
-        app:layout_constraintStart_toStartOf="@+id/datePicker"
-        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="@+id/etLogin"
+        app:layout_constraintStart_toStartOf="@+id/etLogin"
+        app:layout_constraintTop_toBottomOf="@+id/etLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

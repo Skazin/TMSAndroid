@@ -3,6 +3,7 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -45,7 +46,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
              adapter.submitList(it)
          }
 
-        val swipeHandler = object : SwipeToDeleteCallback() {
+        val swipeHandler = object : SwipeToDeleteCallback(ContextCompat.getDrawable(requireContext(), R.drawable.delete_background)) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 adapter.swipeDelete(viewHolder.adapterPosition)
             }
@@ -54,15 +55,16 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
 
-        viewBinding.btnAdd.setOnClickListener {
-            findNavController().navigateSafe(MainFragmentDirections.toNewFragment())
+        viewBinding.btLogout.setOnClickListener {
+            viewModel.logout()
+            findNavController().navigateSafe(MainFragmentDirections.toLoginFragment())
         }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setPadding(0, top, 0, 0)
         viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
-        viewBinding.btnAdd.setVerticalMargin(marginBottom = bottom)
+        viewBinding.btLogout.setVerticalMargin(marginBottom = bottom)
     }
 
     override val backPressedCallback: OnBackPressedCallback
