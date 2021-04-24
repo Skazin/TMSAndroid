@@ -9,7 +9,10 @@ import android.graphics.drawable.shapes.Shape
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +66,8 @@ class MyRecyclerAdapter(
         RecyclerView.ViewHolder(itemView) {
         private val largeTextView: TextView = itemView.findViewById(R.id.textViewLarge)
         private val smallTextView: TextView = itemView.findViewById(R.id.textViewSmall)
+        private val cloudCheck = itemView.findViewById<ImageView>(R.id.cloudCheck)
+        private val cloudCheckNot = itemView.findViewById<ImageView>(R.id.cloudCheckNot)
 
         init {
             itemView.setOnClickListener{
@@ -73,6 +78,8 @@ class MyRecyclerAdapter(
         fun bind(item: Note) {
             largeTextView.text = item.title
             smallTextView.text = item.date
+            cloudCheckNot.isVisible = item.fromCloud.not()
+            cloudCheck.isVisible = item.fromCloud
         }
     }
 
@@ -102,14 +109,14 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
     }
 
     override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-        return oldItem.date == newItem.date && oldItem.title == newItem.title
+        return oldItem.date == newItem.date && oldItem.title == newItem.title && oldItem.fromCloud == newItem.fromCloud
     }
 }
 
-abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+open class SwipeToDeleteCallback(private val background: Drawable?, private val deleteIcon: Drawable?) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private val background = ColorDrawable(Color.RED)
-
+    private val intrinsicWidth = deleteIcon!!.intrinsicWidth
+    private val intrinsicHeight = deleteIcon!!.intrinsicHeight
 
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             return false
@@ -122,10 +129,21 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
                 c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
                 dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
         ) {
-
             val itemView = viewHolder.itemView
-            background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
-            background.draw(c)
+            val itemHeight = itemView.bottom - itemView.top
+            background?.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+            background?.draw(c)
+
+            // Calculate position of delete icon
+            val deleteIconTop = itemView.top + (itemHeight - intrinsicHeight) / 2
+            val deleteIconMargin = (itemHeight - intrinsicHeight) / 2
+            val deleteIconLeft = itemView.right - deleteIconMargin - intrinsicWidth
+            val deleteIconRight = itemView.right - deleteIconMargin
+            val deleteIconBottom = deleteIconTop + intrinsicHeight
+
+            // Draw the delete icon
+            deleteIcon!!.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
+            deleteIcon!!.draw(c)
 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }

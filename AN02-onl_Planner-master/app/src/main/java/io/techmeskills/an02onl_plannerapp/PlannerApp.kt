@@ -1,8 +1,14 @@
 package io.techmeskills.an02onl_plannerapp
 
 import android.app.Application
+import io.techmeskills.an02onl_plannerapp.cloud.IApi
 import io.techmeskills.an02onl_plannerapp.database.DatabaseConstructor
 import io.techmeskills.an02onl_plannerapp.database.NotesDatabase
+import io.techmeskills.an02onl_plannerapp.datastore.AppSettings
+import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
+import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
+import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
+import io.techmeskills.an02onl_plannerapp.screen.loginscreen.LoginViewModel
 import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragmentViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragmentViewModel
@@ -17,18 +23,31 @@ class PlannerApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@PlannerApp)
-            modules(listOf(viewModels, storageModule))
+            modules(listOf(viewModels, storageModule, repositoryModule, cloudModule))
         }
     }
 
     private val viewModels = module {
-        viewModel { MainViewModel(get()) }
+        viewModel { MainViewModel(get(), get(), get()) }
         viewModel { NewFragmentViewModel(get()) }
         viewModel { EditFragmentViewModel(get()) }
+        viewModel { LoginViewModel(get()) }
     }
 
     private val storageModule = module {
-        single { DatabaseConstructor.create(get()) }  //создаем синглтон базы данных
-        factory { get<NotesDatabase>().notesDao() } //предоставляем доступ для конкретной Dao (в нашем случае NotesDao)
+        single { DatabaseConstructor.create(get()) }
+        factory { get<NotesDatabase>().notesDao() }
+        factory { get<NotesDatabase>().usersDao() }
+        single { AppSettings(get()) }
+    }
+
+    private val repositoryModule = module {
+        factory { UsersRepository(get(), get(), get()) }
+        factory { NotesRepository(get(), get()) }
+        factory { CloudRepository(get(), get(), get()) }
+    }
+
+    private val cloudModule = module {
+        factory { IApi.get() }
     }
 }

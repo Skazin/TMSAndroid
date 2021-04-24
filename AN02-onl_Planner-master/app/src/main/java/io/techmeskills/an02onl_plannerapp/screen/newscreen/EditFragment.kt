@@ -34,16 +34,19 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
 
         viewBinding.editButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {
-                viewModel.updateNote(
-                    Note(
-                        id = if (args.note == null) -1 else args.note!!.id,
-                        title = viewBinding.etNote.text.toString(),
-                        date = dateFormatter.format(viewBinding.datePicker.getSelectedDate())
-                    )
+
+                args.note?.let { viewModel.updateNote(
+                        Note(
+                                id = it.id,
+                                title = viewBinding.etNote.text.toString(),
+                                date = dateFormatter.format(viewBinding.datePicker.getSelectedDate()),
+                                userId = it.userId
+                        )
                 )
+                }
                 findNavController().popBackStack()
             } else {
-                Toast.makeText(requireContext(), " Please, enter your note", Toast.LENGTH_LONG)
+                Toast.makeText(requireContext(), "Please, enter your note", Toast.LENGTH_LONG)
                     .show()
             }
         }
