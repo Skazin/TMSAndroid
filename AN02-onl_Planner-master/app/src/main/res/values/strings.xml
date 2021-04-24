@@ -13,6 +13,6 @@
     <string name="cloud_failed">Failed to perform cloud operation</string>
     <string name="logout_request_title">Log Out</string>
     <string name="YES">Yep!</string>
-    <string name="NO">Nope.</string>
+    <string name="NO">Nope</string>
     <string name="pick_action">Do you really want to leave?</string>
 </resources>
