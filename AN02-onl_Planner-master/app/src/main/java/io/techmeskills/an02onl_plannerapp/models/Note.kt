@@ -9,5 +9,7 @@ import kotlinx.parcelize.Parcelize
 open class Note (
         @PrimaryKey (autoGenerate = true) val id: Long = 0L,
         val title: String,
-        val date: String? = null,
-        val userId: Long = -1) : Parcelable
+        val date: String,
+        val userId: Long = -1,
+        val fromCloud: Boolean = false
+) : Parcelable

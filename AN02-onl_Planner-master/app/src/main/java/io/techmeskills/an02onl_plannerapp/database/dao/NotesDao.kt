@@ -11,15 +11,24 @@ abstract class NotesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertNote(note: Note): Long
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertNotes(notes: List<Note>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     abstract fun updateNote(note: Note)
 
     @Delete
     abstract fun deleteNote(note: Note)
 
-    @Query("SELECT * FROM notes")
-    abstract fun getAllNotesFlow(): Flow<List<Note>>
-
     @Query("SELECT * FROM notes WHERE userId == :userId ORDER BY id DESC")
     abstract fun getAllNotesFlowByUserId(userId: Long): Flow<List<Note>>
+
+    @Query("SELECT * FROM notes WHERE userId == :userId ORDER BY id DESC")
+    abstract fun getAllNotesByUserId(userId: Long): List<Note>
+
+    @Query("SELECT * FROM notes WHERE userId == :userId ORDER BY id DESC")
+    abstract fun getAllNotesLiveDataByUserId(userId: Long): LiveData<List<Note>>
+
+    @Query("UPDATE notes SET fromCloud = 1")
+    abstract fun getAllNotesSyncWithCloud()
 }

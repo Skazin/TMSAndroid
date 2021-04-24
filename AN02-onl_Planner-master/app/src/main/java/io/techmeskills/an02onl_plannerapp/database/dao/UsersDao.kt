@@ -19,9 +19,15 @@ abstract class UsersDao {
     @Query("SELECT id FROM users WHERE name == :userName")
     abstract fun getUserId(userName: String): Long
 
+    @Query("SELECT * FROM users WHERE id == :userId")
+    abstract fun getById(userId: Long): Flow<User>
+
     @Query("SELECT COUNT(*) FROM users WHERE name == :userName")
     abstract fun getUsersCountFlow(userName: String): Flow<Int>
 
     @Query("SELECT name FROM users")
     abstract fun getAllUserNames(): Flow<List<String>>
+
+    @Query("SELECT name FROM users WHERE id == :userId")
+    abstract fun getUserNameById(userId: Long): Flow<String>
 }

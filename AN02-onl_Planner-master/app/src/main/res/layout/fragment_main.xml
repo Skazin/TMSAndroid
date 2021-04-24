@@ -10,12 +10,40 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200"
+        android:background="#2929a3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Список дел"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/white">
+
+        <ImageView
+            android:id="@+id/cloudImport"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end"
+            android:scaleType="center"
+            android:src="@drawable/baseline_cloud_download_white_48"
+            app:tint="@color/white"/>
+        <ImageView
+            android:id="@+id/cloudExport"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end"
+            android:scaleType="center"
+            android:src="@drawable/baseline_cloud_upload_white_48"
+            app:tint="@color/white"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -26,7 +54,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/progressIndicator"
         app:spanCount="2"
         tools:listitem="@layout/recyclerview_item" />
 

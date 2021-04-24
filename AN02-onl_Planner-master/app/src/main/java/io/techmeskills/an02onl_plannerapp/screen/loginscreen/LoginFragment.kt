@@ -31,6 +31,7 @@ class LoginFragment : NavigationFragment<LoginFragmentBinding>(R.layout.login_fr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.errorLiveData.observe(this.viewLifecycleOwner) { errorText ->
             Toast.makeText(requireContext(), errorText, Toast.LENGTH_SHORT).show()
         }
@@ -44,12 +45,13 @@ class LoginFragment : NavigationFragment<LoginFragmentBinding>(R.layout.login_fr
         }
 
         viewBinding.btConfirm.setOnClickListener {
-            viewModel.login(viewBinding.etLogin.toString())
+            viewModel.login(viewBinding.etLogin.text.toString())
         }
 
         viewModel.autoCompleteUsersLiveData.observe(this.viewLifecycleOwner) { names ->
             val namesHintAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
-                    requireContext(), android.R.layout.select_dialog_item, names
+                    requireContext(),
+                    android.R.layout.select_dialog_item, names
             )
             viewBinding.etLogin.setAdapter(namesHintAdapter)
         }

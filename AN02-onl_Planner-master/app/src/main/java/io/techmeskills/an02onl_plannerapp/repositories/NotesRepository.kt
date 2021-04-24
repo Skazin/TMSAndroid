@@ -10,7 +10,21 @@ import kotlinx.coroutines.withContext
 
 class NotesRepository(private val notesDao: NotesDao, private val appSettings: AppSettings) {
 
-    val currentNotesFlow: Flow<List<Note>> = appSettings.userIdFlow().flatMapLatest { userId -> notesDao.getAllNotesFlowByUserId(userId) }
+    val currentNotesFlow: Flow<List<Note>> =
+        appSettings.userIdFlow()
+            .flatMapLatest { userId ->
+                notesDao.getAllNotesFlowByUserId(userId)
+            }
+
+    suspend fun getCurrentUserNotes(): List<Note> =
+        notesDao.getAllNotesByUserId(appSettings.userId())
+
+
+    suspend fun setNotesSyncWithCloud() {
+        withContext(Dispatchers.IO){
+            notesDao.getAllNotesSyncWithCloud()
+        }
+    }
 
     suspend fun newNote(note: Note) {
         withContext(Dispatchers.IO) {
@@ -19,6 +33,12 @@ class NotesRepository(private val notesDao: NotesDao, private val appSettings: A
                     date = note.date,
                     userId = appSettings.userId()
             ))
+        }
+    }
+
+    suspend fun newNotes(notes: List<Note>) {
+        withContext(Dispatchers.IO) {
+            notesDao.insertNotes(notes)
         }
     }
 
