@@ -23,33 +23,19 @@ import io.techmeskills.an02onl_plannerapp.R.drawable.delete_background
 
 class MyRecyclerAdapter(
     private val onClick: (Note) -> Unit,
-    private val onDelete: (Note) -> Unit,
-    private val onAddNew: () -> Unit
-) : ListAdapter<Note, RecyclerView.ViewHolder>(NoteAdapterDiffCallback()) {
+    private val onDelete: (Note) -> Unit
+) : ListAdapter<Note, MyRecyclerAdapter.NoteViewHolder>(NoteAdapterDiffCallback()) {
 
     override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-    ) : RecyclerView.ViewHolder = when (viewType) {
-        ADD_NEW_VIEW_TYPE -> AddNewViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item_add, parent, false),
-            onAddNew)
-        else -> NoteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false),
-            ::onCardClick,
-            ::swipeDelete)
-    }
+    ) = NoteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false),
+    ::onCardClick,
+    ::swipeDelete)
 
-    override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is AddNewNote -> ADD_NEW_VIEW_TYPE
-            else -> NOTE_VIEW_TYPE
-        }
-    }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is NoteViewHolder -> holder.bind(getItem(position))
-            else -> (holder as AddNewViewHolder).bind()
-        }
+    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+         holder.bind(getItem(position))
     }
 
 
@@ -81,25 +67,6 @@ class MyRecyclerAdapter(
             cloudCheckNot.isVisible = item.fromCloud.not()
             cloudCheck.isVisible = item.fromCloud
         }
-    }
-
-    inner class AddNewViewHolder(
-        itemView: View,
-        private val onItemClick: () -> Unit
-    ) : RecyclerView.ViewHolder(itemView) {
-
-        init {
-            itemView.setOnClickListener {
-                onItemClick()
-            }
-        }
-
-        fun bind() = Unit
-    }
-
-    companion object {
-        const val ADD_NEW_VIEW_TYPE = 322
-        const val NOTE_VIEW_TYPE = 111
     }
 }
 

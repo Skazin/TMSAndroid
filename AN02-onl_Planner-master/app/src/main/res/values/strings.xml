@@ -11,6 +11,9 @@
     <string name="login">Log in</string>
     <string name="enter_user_name">Enter user name</string>
     <string name="cloud_failed">Failed to perform cloud operation</string>
+    <string name="no_notes">There\'s no clouded notes</string>
+    <string name="no_new_notes">There\'s no new notes</string>
+    <string name="all_good">Import successfully done</string>
     <string name="logout_request_title">Log Out</string>
     <string name="YES">Yep!</string>
     <string name="NO">Nope</string>

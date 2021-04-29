@@ -5,6 +5,7 @@ import io.techmeskills.an02onl_plannerapp.cloud.CloudUser
 import io.techmeskills.an02onl_plannerapp.cloud.ExportNotesRequestBody
 import io.techmeskills.an02onl_plannerapp.cloud.IApi
 import io.techmeskills.an02onl_plannerapp.models.Note
+import io.techmeskills.an02onl_plannerapp.support.Result
 import kotlinx.coroutines.flow.first
 
 class CloudRepository(
@@ -26,11 +27,13 @@ class CloudRepository(
         return exportResult
     }
 
-    suspend fun importNotes(): Boolean {
+    suspend fun importNotes(): Result {
         val user = usersRepository.getCurrentUserFlow().first()
+        val currentNotes = notesRepository.getCurrentUserNotes()
         val response = apiInterface.importNotes(user.name, usersRepository.phoneId)
         val cloudNote= response.body() ?: emptyList()
-        val notes = cloudNote.map { cloudNote ->
+        if(cloudNote.isNullOrEmpty()) return Result.NO_NOTES
+        val importedNotes = cloudNote.map { cloudNote ->
             Note(
                 title = cloudNote.title,
                 date = cloudNote.date,
@@ -38,7 +41,8 @@ class CloudRepository(
                 fromCloud = true
             )
         }
-        notesRepository.newNotes(notes)
-        return response.isSuccessful
+        if (currentNotes == importedNotes) return Result.NO_NEW_NOTES
+        else { notesRepository.newNotes(currentNotes)
+        return Result.ALL_GOOD }
     }
 }

@@ -2,7 +2,7 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import io.techmeskills.an02onl_plannerapp.database.dao.NotesDao
+import io.techmeskills.an02onl_plannerapp.support.Result
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
@@ -18,10 +18,10 @@ class MainViewModel(private val notesRepository: NotesRepository,
                     private val cloudRepository: CloudRepository
                     ) : CoroutineViewModel() {
 
+    val importProgressLiveData = MutableLiveData<Result>()
     val progressLiveData = MutableLiveData<Boolean>()
     val currentUserNameLiveData = usersRepository.getCurrentUserName().asLiveData()
-    val listLiveData = notesRepository.currentNotesFlow.flowOn(Dispatchers.IO).map {
-        listOf(AddNewNote) + it }.asLiveData()
+    val listLiveData = notesRepository.currentNotesFlow.flowOn(Dispatchers.IO).map { it }.asLiveData()
 
     fun deleteNote(note: Note) {
         launch {
@@ -42,8 +42,6 @@ class MainViewModel(private val notesRepository: NotesRepository,
 
     fun importNotes() = launch {
         val result = cloudRepository.importNotes()
-        progressLiveData.postValue(result)
+        importProgressLiveData.postValue(result)
     }
 }
-
-object AddNewNote : Note(-1, "", "")
