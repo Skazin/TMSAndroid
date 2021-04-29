@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "notes")
-open class Note (
+data class Note (
         @PrimaryKey (autoGenerate = true) val id: Long = 0L,
         val title: String,
         val date: String,

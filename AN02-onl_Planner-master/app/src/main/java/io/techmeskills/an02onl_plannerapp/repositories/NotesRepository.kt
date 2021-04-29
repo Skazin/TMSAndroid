@@ -48,6 +48,12 @@ class NotesRepository(private val notesDao: NotesDao, private val appSettings: A
         }
     }
 
+    suspend fun updateNotes(notes: List<Note>) {
+        withContext(Dispatchers.IO) {
+            notesDao.updateNotes(notes)
+        }
+    }
+
     suspend fun deleteNote(note: Note) {
         withContext(Dispatchers.IO) {
             notesDao.deleteNote(note)

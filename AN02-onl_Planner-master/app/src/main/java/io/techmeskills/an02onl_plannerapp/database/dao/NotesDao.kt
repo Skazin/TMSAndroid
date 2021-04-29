@@ -17,6 +17,9 @@ abstract class NotesDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     abstract fun updateNote(note: Note)
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun updateNotes(notes: List<Note>)
+
     @Delete
     abstract fun deleteNote(note: Note)
 

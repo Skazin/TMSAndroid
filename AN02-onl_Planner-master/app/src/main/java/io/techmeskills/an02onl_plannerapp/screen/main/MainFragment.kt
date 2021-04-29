@@ -15,6 +15,7 @@ import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
+import io.techmeskills.an02onl_plannerapp.support.Result
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,10 +28,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
     private val adapter = MyRecyclerAdapter(
             onClick = :: onCardClick,
-            onDelete = :: onCardDelete,
-            onAddNew = {
-                findNavController().navigateSafe(MainFragmentDirections.toNewFragment())
-            }
+            onDelete = :: onCardDelete
     )
 
     private fun onCardClick(note: Note) {
@@ -49,6 +47,10 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
              adapter.submitList(it)
          }
 
+        viewBinding.btAdd.setOnClickListener {
+            findNavController().navigateSafe(MainFragmentDirections.toNewFragment())
+        }
+
         val swipeHandler = object : SwipeToDeleteCallback(
                 ContextCompat.getDrawable(requireContext(), R.drawable.delete_background),
                 ContextCompat.getDrawable(requireContext(), R.drawable.baseline_delete_white_48)) {
@@ -66,7 +68,15 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewModel.progressLiveData.observe(this.viewLifecycleOwner) { success ->
             if(success.not()) {
-                Toast.makeText(requireContext(), R.string.cloud_failed, Toast.LENGTH_LONG)
+                Toast.makeText(requireContext(), R.string.cloud_failed, Toast.LENGTH_LONG).show()
+            }
+            viewBinding.progressIndicator.isVisible = false
+        }
+
+        viewModel.importProgressLiveData.observe(this.viewLifecycleOwner) { result ->
+            when (result!!) {
+                Result.NO_NOTES -> Toast.makeText(requireContext(), R.string.no_notes, Toast.LENGTH_LONG).show()
+                Result.NO_NEW_NOTES -> Toast.makeText(requireContext(), R.string.no_new_notes, Toast.LENGTH_LONG).show()
             }
             viewBinding.progressIndicator.isVisible = false
         }
