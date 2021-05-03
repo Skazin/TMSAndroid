@@ -47,13 +47,9 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
              adapter.submitList(it)
          }
 
-        viewBinding.btAdd.setOnClickListener {
-            findNavController().navigateSafe(MainFragmentDirections.toNewFragment())
-        }
-
         val swipeHandler = object : SwipeToDeleteCallback(
                 ContextCompat.getDrawable(requireContext(), R.drawable.delete_background),
-                ContextCompat.getDrawable(requireContext(), R.drawable.baseline_delete_white_48)) {
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 adapter.swipeDelete(viewHolder.adapterPosition)
             }
@@ -61,10 +57,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
-
-        viewBinding.btLogout.setOnClickListener {
-            showDialogLogout()
-        }
 
         viewModel.progressLiveData.observe(this.viewLifecycleOwner) { success ->
             if(success.not()) {
@@ -91,28 +83,18 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             viewModel.exportNotes()
         }
 
-        viewModel.currentUserNameLiveData.observe(this.viewLifecycleOwner) {
-            viewBinding.toolbar.title = it
+        viewBinding.addNewNote.setOnClickListener {
+            findNavController().navigateSafe(MainFragmentDirections.toNewFragment())
         }
-    }
 
-    private fun showDialogLogout() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.logout_request_title)
-            .setMessage(R.string.pick_action)
-            .setPositiveButton(R.string.YES) { dialog, _ ->
-                viewModel.logout()
-                findNavController().navigateSafe(MainFragmentDirections.toLoginFragment())
-                dialog.cancel()
-            }.setNegativeButton(R.string.NO) { dialog, _ ->
-                dialog.cancel()
-            }.show()
+        viewBinding.userSettings.setOnClickListener {
+            findNavController().navigateSafe(MainFragmentDirections.toUserSettingsFragment())
+        }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
         viewBinding.toolbar.setPadding(0, top, 0, 0)
         viewBinding.recyclerView.setPadding(0, 0, 0, bottom)
-        viewBinding.btLogout.setVerticalMargin(marginBottom = bottom)
     }
 
     override val backPressedCallback: OnBackPressedCallback

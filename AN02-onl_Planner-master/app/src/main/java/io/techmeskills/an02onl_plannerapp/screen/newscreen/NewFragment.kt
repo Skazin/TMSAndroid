@@ -35,7 +35,8 @@ class NewFragment : NavigationFragment<AddNewTextBinding>(R.layout.add_new_text)
                 viewModel.addNewNote(
                     Note(
                             title = viewBinding.etNote.text.toString(),
-                            date = dateFormatter.format(viewBinding.datePicker.getSelectedDate())
+                            date = dateFormatter.format(viewBinding.datePicker.getSelectedDate()),
+                            userName = ""
                     )
                 )
                 findNavController().popBackStack()

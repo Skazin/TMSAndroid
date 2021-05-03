@@ -12,6 +12,8 @@ import io.techmeskills.an02onl_plannerapp.screen.loginscreen.LoginViewModel
 import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragmentViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragmentViewModel
+import io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsFragment
+import io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -28,11 +30,12 @@ class PlannerApp : Application() {
     }
 
     private val viewModels = module {
-        viewModel { MainViewModel(get(), get(), get()) }
+        viewModel { MainViewModel(get(), get()) }
         viewModel { NewFragmentViewModel(get()) }
         viewModel { EditFragmentViewModel(get()) }
-        viewModel { LoginViewModel(get()) }
-    }
+        viewModel { LoginViewModel(get())}
+        viewModel { UserSettingsViewModel(get(), get()) }
+        }
 
     private val storageModule = module {
         single { DatabaseConstructor.create(get()) }
@@ -43,7 +46,7 @@ class PlannerApp : Application() {
 
     private val repositoryModule = module {
         factory { UsersRepository(get(), get(), get()) }
-        factory { NotesRepository(get(), get()) }
+        factory { NotesRepository(get(), get(), get()) }
         factory { CloudRepository(get(), get(), get()) }
     }
 

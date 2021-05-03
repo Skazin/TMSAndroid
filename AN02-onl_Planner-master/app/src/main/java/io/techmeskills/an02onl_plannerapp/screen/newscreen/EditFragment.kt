@@ -40,7 +40,7 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
                                 id = it.id,
                                 title = viewBinding.etNote.text.toString(),
                                 date = dateFormatter.format(viewBinding.datePicker.getSelectedDate()),
-                                userId = it.userId
+                                userName = it.userName
                         )
                 )
                 }
