@@ -3,13 +3,15 @@ package io.techmeskills.an02onl_plannerapp.screen.newscreen
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
-import io.techmeskills.an02onl_plannerapp.databinding.EditCardBinding
+import io.techmeskills.an02onl_plannerapp.databinding.EditNoteFragmentBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
@@ -17,20 +19,19 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
+class EditFragment : NavigationFragment<EditNoteFragmentBinding>(R.layout.edit_note_fragment) {
 
-    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    override val viewBinding: EditCardBinding by viewBinding()
+    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    override val viewBinding: EditNoteFragmentBinding by viewBinding()
     private val calendar = Calendar.getInstance()
     private val args: EditFragmentArgs by navArgs()
     private val viewModel: EditFragmentViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH), DatePicker.OnDateChangedListener() {
-            view, year, monthOfYear, dayOfMonth ->
-
-        })
+        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)
+        ) { _, _, _, _ -> }
+        viewBinding.timePicker.setIs24HourView(true)
 
         viewBinding.editButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {
@@ -39,8 +40,9 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
                         Note(
                                 id = it.id,
                                 title = viewBinding.etNote.text.toString(),
-                                date = dateFormatter.format(viewBinding.datePicker.getSelectedDate()),
-                                userId = it.userId
+                                date = dateFormatter.format(viewBinding.datePicker.getSelectedDate(viewBinding.timePicker)),
+                                userName = it.userName,
+                                notificationOn = viewBinding.notificationCheck.isChecked
                         )
                 )
                 }
@@ -52,29 +54,14 @@ class EditFragment : NavigationFragment<EditCardBinding>(R.layout.edit_card) {
         }
     }
 
-    private fun DatePicker.getSelectedDate(): Date {
+    private fun DatePicker.getSelectedDate(timePicker: TimePicker): Date {
         val calendar = Calendar.getInstance(Locale.getDefault())
         calendar.set(Calendar.YEAR, this.year)
         calendar.set(Calendar.MONTH, this.month)
         calendar.set(Calendar.DAY_OF_MONTH, this.dayOfMonth)
-        calendar.set(Calendar.HOUR, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+        calendar.set(Calendar.MINUTE, timePicker.minute)
         return calendar.time
-    }
-
-    private fun DatePicker.setSelectedDate(date: String?) {
-        date?.let {
-            dateFormatter.parse(it)?.let { date ->
-                val calendar = Calendar.getInstance(Locale.getDefault())
-                calendar.time = date
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
-                this.updateDate(year, month, day)
-            }
-        }
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

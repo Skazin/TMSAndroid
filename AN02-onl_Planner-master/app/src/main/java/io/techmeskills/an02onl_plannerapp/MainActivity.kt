@@ -28,4 +28,12 @@ class MainActivity : SupportActivityInset<ActivityMainBinding>() {
     override fun getActiveFragment(): Fragment? {
         return navHostFragment.childFragmentManager.fragments[0]
     }
+
+    override fun onBackPressed() {
+        if (navController.previousBackStackEntry != null) {
+            super.onBackPressed()
+        } else {
+            finish()
+        }
+    }
 }

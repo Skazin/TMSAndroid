@@ -17,21 +17,21 @@
             android:id="@+id/toEditFragment"
             app:destination="@+id/editFragment" />
         <action
-            android:id="@+id/toLoginFragment"
-            app:destination="@+id/loginFragment"/>
+            android:id="@+id/toUserSettingsFragment"
+            app:destination="@+id/userSettings"/>
     </fragment>
 
     <fragment
         android:id="@+id/newFragment"
         android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragment"
         android:label="NewFragment"
-        tools:layout="@layout/add_new_text"/>
+        tools:layout="@layout/add_new_note_fragment"/>
 
     <fragment
         android:id="@+id/editFragment"
         android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragment"
         android:label="EditFragment"
-        tools:layout="@layout/edit_card">
+        tools:layout="@layout/edit_note_fragment">
         <argument
             android:name="note"
             app:argType="io.techmeskills.an02onl_plannerapp.models.Note"
@@ -46,5 +46,15 @@
             android:id="@+id/toMainFragment"
             app:destination="@+id/mainFragment"
         /></fragment>
+    <fragment
+        android:id="@+id/userSettings"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsFragment"
+        android:label="UserSettingsFragment"
+        tools:layout="@layout/edit_user_fragment">
+        <action
+            android:id="@+id/toLoginFragment"
+            app:destination="@+id/loginFragment"/>
+    </fragment>
+
 
 </navigation>

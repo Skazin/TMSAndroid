@@ -17,8 +17,15 @@ class CloudRepository(
     suspend fun exportNotes(): Boolean {
         val user = usersRepository.getCurrentUserFlow().first()
         val notes = notesRepository.getCurrentUserNotes()
-        val cloudUser = CloudUser(userId = user.id, userName = user.name)
-        val cloudNotes = notes.map { CloudNote(id = it.id, title = it.title, date = it.date) }
+        val cloudUser = CloudUser(userName = user.name)
+        val cloudNotes = notes.map {
+            CloudNote(
+            id = it.id,
+            title = it.title,
+            date = it.date,
+            notification = it.notificationOn
+            )
+        }
         val exportNotesRequestBody = ExportNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes)
         val exportResult = apiInterface.exportNotes(exportNotesRequestBody).isSuccessful
         if(exportResult) {
@@ -29,7 +36,6 @@ class CloudRepository(
 
     suspend fun importNotes(): Result {
         val user = usersRepository.getCurrentUserFlow().first()
-        val currentNotes = notesRepository.getCurrentUserNotes()
         val response = apiInterface.importNotes(user.name, usersRepository.phoneId)
         val cloudNote= response.body() ?: emptyList()
         if(cloudNote.isNullOrEmpty()) return Result.NO_NOTES
@@ -37,12 +43,15 @@ class CloudRepository(
             Note(
                 title = cloudNote.title,
                 date = cloudNote.date,
-                userId = user.id,
-                fromCloud = true
+                userName = user.name,
+                fromCloud = true,
+                notificationOn = cloudNote.notification
             )
         }
+        val currentNotes = notesRepository.getCurrentUserNotes()
         if (currentNotes == importedNotes) return Result.NO_NEW_NOTES
-        else { notesRepository.newNotes(currentNotes)
-        return Result.ALL_GOOD }
+        val resultList = (importedNotes + currentNotes).distinctBy { it.title + it.date }
+        notesRepository.newNotes(resultList)
+        return Result.ALL_GOOD
     }
 }

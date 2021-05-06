@@ -1,25 +1,19 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.graphics.*
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RectShape
-import android.graphics.drawable.shapes.Shape
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
 import io.techmeskills.an02onl_plannerapp.R
+import io.techmeskills.an02onl_plannerapp.R.drawable.*
 import io.techmeskills.an02onl_plannerapp.models.Note
-import io.techmeskills.an02onl_plannerapp.R.drawable.delete_background
 
 class MyRecyclerAdapter(
     private val onClick: (Note) -> Unit,
@@ -53,7 +47,8 @@ class MyRecyclerAdapter(
         private val largeTextView: TextView = itemView.findViewById(R.id.textViewLarge)
         private val smallTextView: TextView = itemView.findViewById(R.id.textViewSmall)
         private val cloudCheck = itemView.findViewById<ImageView>(R.id.cloudCheck)
-        private val cloudCheckNot = itemView.findViewById<ImageView>(R.id.cloudCheckNot)
+        private val notification = itemView.findViewById<ImageView>(R.id.notification)
+
 
         init {
             itemView.setOnClickListener{
@@ -64,8 +59,13 @@ class MyRecyclerAdapter(
         fun bind(item: Note) {
             largeTextView.text = item.title
             smallTextView.text = item.date
-            cloudCheckNot.isVisible = item.fromCloud.not()
-            cloudCheck.isVisible = item.fromCloud
+            if(item.notificationOn) {
+                notification.setImageResource(ic_notification_on)
+            } else notification.setImageResource(ic_notification_off)
+            if(item.fromCloud) {
+                cloudCheck.setImageResource(ic_cloud_check)
+            } else cloudCheck.setImageResource(ic_not_cloud)
+
         }
     }
 }

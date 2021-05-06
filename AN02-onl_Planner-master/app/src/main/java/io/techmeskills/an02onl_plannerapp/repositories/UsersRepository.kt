@@ -21,15 +21,21 @@ class UsersRepository(
 
     val userNames = usersDao.getAllUserNames()
 
-    suspend fun login(userName: String){
+    suspend fun login(userName: String) {
         withContext(Dispatchers.IO) {
             if(checkUserExists(userName).not()){
-                val userId = usersDao.newUser(User(name = userName))
-                appSettings.setUserId(userId)
+                usersDao.newUser(User(name = userName))
+                appSettings.setUserName(userName)
             } else {
-                val userId = usersDao.getUserId(userName)
-                appSettings.setUserId(userId)
+                appSettings.setUserName(userName)
             }
+        }
+    }
+
+    suspend fun updateUser(oldName: String, newName: String) {
+        withContext(Dispatchers.IO) {
+            appSettings.setUserName(newName)
+            usersDao.updateUserName(oldName, newName)
         }
     }
 
@@ -39,20 +45,34 @@ class UsersRepository(
         }
     }
 
-    fun getCurrentUserFlow(): Flow<User> = appSettings.userIdFlow().flatMapLatest {
-        usersDao.getById(it)
+    fun getCurrentUserFlow(): Flow<User> = appSettings.userNameFlow().map {
+        User(it)
     }
+
+    fun getCurrentUserNameFlow(): Flow<String> = appSettings.userNameFlow().flatMapLatest {
+        appSettings.userNameFlow()
+    }
+
+    suspend fun userName(): String {
+        return withContext(Dispatchers.IO) {
+            appSettings.userName()
+        }
+    }
+
 
     fun checkUserLoggedIn(): Flow<Boolean> =
-            appSettings.userIdFlow().map { it >= 0 }.flowOn(Dispatchers.IO)
-
-    fun getCurrentUserName(): Flow<String> = appSettings.userIdFlow().flatMapLatest {
-        usersDao.getUserNameById(it)
-    }
+            appSettings.userNameFlow().map { it.isNotEmpty() }.flowOn(Dispatchers.IO)
 
     suspend fun logout() {
         withContext(Dispatchers.IO) {
-            appSettings.setUserId(-1)
+            appSettings.setUserName("")
+        }
+    }
+
+    suspend fun deleteCurrent() {
+        withContext(Dispatchers.IO) {
+            usersDao.deleteUser(User(appSettings.userName()))
+            logout()
         }
     }
 

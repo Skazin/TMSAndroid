@@ -18,12 +18,19 @@
         app:titleTextColor="@color/white">
 
         <ImageView
+            android:id="@+id/userSettings"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end"
+            android:scaleType="center"
+            android:src="@drawable/ic_user_settings"/>
+        <ImageView
             android:id="@+id/cloudImport"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="end"
             android:scaleType="center"
-            android:src="@drawable/baseline_cloud_download_white_48"
+            android:src="@drawable/ic_cloud_download"
             app:tint="@color/white"/>
         <ImageView
             android:id="@+id/cloudExport"
@@ -31,7 +38,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="end"
             android:scaleType="center"
-            android:src="@drawable/baseline_cloud_upload_white_48"
+            android:src="@drawable/ic_cloud_upload"
             app:tint="@color/white"/>
     </androidx.appcompat.widget.Toolbar>
 
@@ -53,26 +60,25 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/progressIndicator"
         app:spanCount="2"
         tools:listitem="@layout/recyclerview_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btLogout"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addNewNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_logout"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/purple_500"
+        android:elevation="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/add_new_note"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
