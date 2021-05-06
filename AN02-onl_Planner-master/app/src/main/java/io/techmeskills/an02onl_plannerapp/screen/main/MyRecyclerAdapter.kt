@@ -54,6 +54,8 @@ class MyRecyclerAdapter(
         private val smallTextView: TextView = itemView.findViewById(R.id.textViewSmall)
         private val cloudCheck = itemView.findViewById<ImageView>(R.id.cloudCheck)
         private val cloudCheckNot = itemView.findViewById<ImageView>(R.id.cloudCheckNot)
+        private val notificationOn = itemView.findViewById<ImageView>(R.id.notificationOn)
+        private val notificationOff = itemView.findViewById<ImageView>(R.id.notificationOff)
 
         init {
             itemView.setOnClickListener{
@@ -66,6 +68,9 @@ class MyRecyclerAdapter(
             smallTextView.text = item.date
             cloudCheckNot.isVisible = item.fromCloud.not()
             cloudCheck.isVisible = item.fromCloud
+            notificationOn.isVisible = item.notificationOn
+            notificationOff.isVisible = item.notificationOn.not()
+
         }
     }
 }

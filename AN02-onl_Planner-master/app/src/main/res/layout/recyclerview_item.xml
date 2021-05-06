@@ -64,6 +64,28 @@
             app:layout_constraintTop_toTopOf="@+id/textViewSmall"
             app:tint="@color/purple_700" />
 
+        <ImageView
+            android:id="@+id/notificationOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_notification_on"
+            app:layout_constraintBottom_toBottomOf="@+id/cloudCheck"
+            app:layout_constraintEnd_toStartOf="@+id/cloudCheck"
+            app:layout_constraintTop_toTopOf="@+id/cloudCheck"
+            app:tint="@color/purple_700" />
+
+        <ImageView
+            android:id="@+id/notificationOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_notification_off"
+            app:layout_constraintBottom_toBottomOf="@+id/cloudCheck"
+            app:layout_constraintEnd_toStartOf="@+id/cloudCheck"
+            app:layout_constraintTop_toTopOf="@+id/cloudCheck"
+            app:tint="@color/purple_700" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -2,6 +2,7 @@ package io.techmeskills.an02onl_plannerapp.screen.usersettings
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -30,7 +31,16 @@ class UserSettingsFragment : NavigationFragment<EditUserFragmentBinding>(R.layou
         }
 
         viewModel.currentUserNameLiveData.observe(this.viewLifecycleOwner) {
-            viewBinding.userName.text = it.name
+            viewBinding.userName.text = it.toString()
+        }
+
+        viewBinding.btnChangeName.setOnClickListener {
+            if(viewBinding.changeName.text.isNotBlank()) {
+                    viewModel.updateUser(viewBinding.changeName.text.toString())
+            } else {
+                Toast.makeText(requireContext(), "Please, enter new user's name", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 

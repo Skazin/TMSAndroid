@@ -14,6 +14,7 @@ abstract class UsersDao {
     @Delete
     abstract fun deleteUser(user: User)
 
+
     @Query("SELECT COUNT(*) FROM users WHERE name == :userName")
     abstract fun getUsersCount(userName: String): Int
 
@@ -22,6 +23,9 @@ abstract class UsersDao {
 
     @Query("SELECT name FROM users")
     abstract fun getAllUserNames(): Flow<List<String>>
+
+    @Query("UPDATE users SET name = :newName WHERE name = :oldName")
+    abstract fun updateUserName(oldName: String, newName: String)
 
     @Transaction
     @Query("SELECT * from users WHERE name == :userName LIMIT 1")

@@ -21,7 +21,7 @@ class UsersRepository(
 
     val userNames = usersDao.getAllUserNames()
 
-    suspend fun login(userName: String){
+    suspend fun login(userName: String) {
         withContext(Dispatchers.IO) {
             if(checkUserExists(userName).not()){
                 usersDao.newUser(User(name = userName))
@@ -29,6 +29,12 @@ class UsersRepository(
             } else {
                 appSettings.setUserName(userName)
             }
+        }
+    }
+
+    suspend fun updateUser(oldName: String, newName: String) {
+        withContext(Dispatchers.IO) {
+            usersDao.updateUserName(oldName, newName)
         }
     }
 
@@ -40,6 +46,16 @@ class UsersRepository(
 
     fun getCurrentUserFlow(): Flow<User> = appSettings.userNameFlow().map {
         User(it)
+    }
+
+    fun getCurrentUserNameFlow(): Flow<String> = appSettings.userNameFlow().flatMapLatest {
+        appSettings.userNameFlow()
+    }
+
+    suspend fun userName(): String {
+        return withContext(Dispatchers.IO) {
+            appSettings.userName()
+        }
     }
 
 

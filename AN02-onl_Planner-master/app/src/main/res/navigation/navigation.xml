@@ -25,13 +25,13 @@
         android:id="@+id/newFragment"
         android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragment"
         android:label="NewFragment"
-        tools:layout="@layout/add_new_text"/>
+        tools:layout="@layout/add_new_note_fragment"/>
 
     <fragment
         android:id="@+id/editFragment"
         android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragment"
         android:label="EditFragment"
-        tools:layout="@layout/edit_card">
+        tools:layout="@layout/edit_note_fragment">
         <argument
             android:name="note"
             app:argType="io.techmeskills.an02onl_plannerapp.models.Note"

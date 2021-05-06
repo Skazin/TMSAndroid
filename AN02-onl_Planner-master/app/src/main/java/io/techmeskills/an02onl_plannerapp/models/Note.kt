@@ -24,5 +24,6 @@ data class Note (
         @ColumnInfo(index = true, name = "userName")
         val userName: String,
 
-        val fromCloud: Boolean = false
+        val fromCloud: Boolean = false,
+        val notificationOn: Boolean = false
 ) : Parcelable

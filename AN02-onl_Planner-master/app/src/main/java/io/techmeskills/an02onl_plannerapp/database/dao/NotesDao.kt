@@ -26,6 +26,9 @@ abstract class NotesDao {
     @Query("DELETE FROM notes")
     abstract fun clearTable()
 
+    @Query("SELECT * FROM notes WHERE id == :noteId LIMIT 1")
+    abstract fun getNoteById(noteId: Long): Note
+
     @Query("SELECT * FROM notes WHERE userName == :userName ORDER BY id DESC")
     abstract fun getAllNotesFlowByUserName(userName: String): Flow<List<Note>>
 

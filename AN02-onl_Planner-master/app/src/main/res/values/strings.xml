@@ -20,4 +20,5 @@
     <string name="pick_action">Do you really want to leave?</string>
     <string name="delete_user_request_title">Log Out</string>
     <string name="pick_delete_action">Do you really want to delete user?</string>
+    <string name="notificationCheckBoxText">Notification</string>
 </resources>
