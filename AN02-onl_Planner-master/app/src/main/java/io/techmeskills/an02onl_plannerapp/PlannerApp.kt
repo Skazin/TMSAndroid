@@ -15,7 +15,6 @@ import io.techmeskills.an02onl_plannerapp.screen.loginscreen.LoginViewModel
 import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragmentViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragmentViewModel
-import io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsFragment
 import io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
