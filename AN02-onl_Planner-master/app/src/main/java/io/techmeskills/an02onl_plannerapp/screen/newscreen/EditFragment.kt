@@ -62,7 +62,7 @@ class EditFragment : NavigationFragment<EditNoteFragmentBinding>(R.layout.edit_n
         calendar.set(Calendar.YEAR, this.year)
         calendar.set(Calendar.MONTH, this.month)
         calendar.set(Calendar.DAY_OF_MONTH, this.dayOfMonth)
-        calendar.set(Calendar.HOUR, timePicker.hour)
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
         calendar.set(Calendar.MINUTE, timePicker.minute)
         return calendar.time
     }
