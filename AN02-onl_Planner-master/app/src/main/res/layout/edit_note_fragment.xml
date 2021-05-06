@@ -62,33 +62,11 @@
         android:text="@string/notificationCheckBoxText"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:button="@drawable/checkbox_button"
+        android:buttonTint="#2929a3"
         app:layout_constraintEnd_toEndOf="@+id/timePicker"
         app:layout_constraintStart_toStartOf="@+id/timePicker"
         app:layout_constraintTop_toBottomOf="@+id/timePicker"/>
-
-    <ImageView
-        android:id="@+id/notificationOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_notification_on"
-        app:tint="#2929a3"
-        app:layout_constraintStart_toEndOf="@id/notificationCheck"
-        app:layout_constraintTop_toTopOf="@id/notificationCheck"
-        app:layout_constraintBottom_toBottomOf="@id/notificationCheck">
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/notificationOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ic_notification_off"
-        app:tint="#2929a3"
-        app:layout_constraintStart_toEndOf="@id/notificationCheck"
-        app:layout_constraintTop_toTopOf="@id/notificationCheck"
-        app:layout_constraintBottom_toBottomOf="@id/notificationCheck">
-    </ImageView>
 
     <Button
         android:id="@+id/editButton"

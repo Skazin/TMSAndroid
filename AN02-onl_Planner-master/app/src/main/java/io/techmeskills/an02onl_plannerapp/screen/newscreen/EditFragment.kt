@@ -52,9 +52,6 @@ class EditFragment : NavigationFragment<EditNoteFragmentBinding>(R.layout.edit_n
                     .show()
             }
         }
-
-        viewBinding.notificationOn.isVisible = viewBinding.notificationCheck.isChecked
-        viewBinding.notificationOff.isVisible = viewBinding.notificationCheck.isChecked.not()
     }
 
     private fun DatePicker.getSelectedDate(timePicker: TimePicker): Date {

@@ -23,7 +23,6 @@ class NewFragment : NavigationFragment<AddNewNoteFragmentBinding>(R.layout.add_n
     private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
     override val viewBinding: AddNewNoteFragmentBinding by viewBinding()
     private val viewModel: NewFragmentViewModel by viewModel()
-    private val selectedDate: Date = Date()
     private val calendar = Calendar.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,9 +48,6 @@ class NewFragment : NavigationFragment<AddNewNoteFragmentBinding>(R.layout.add_n
                         .show()
             }
         }
-
-        viewBinding.notificationOn.isVisible = viewBinding.notificationCheck.isChecked
-        viewBinding.notificationOff.isVisible = viewBinding.notificationCheck.isChecked.not()
     }
 
     private fun DatePicker.getSelectedDate(timePicker: TimePicker): Date {

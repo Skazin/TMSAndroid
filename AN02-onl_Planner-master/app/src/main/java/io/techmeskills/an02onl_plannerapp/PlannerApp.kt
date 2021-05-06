@@ -36,7 +36,7 @@ class PlannerApp : Application() {
         viewModel { NewFragmentViewModel(get()) }
         viewModel { EditFragmentViewModel(get()) }
         viewModel { LoginViewModel(get())}
-        viewModel { UserSettingsViewModel(get(), get()) }
+        viewModel { UserSettingsViewModel(get()) }
         }
 
     private val storageModule = module {

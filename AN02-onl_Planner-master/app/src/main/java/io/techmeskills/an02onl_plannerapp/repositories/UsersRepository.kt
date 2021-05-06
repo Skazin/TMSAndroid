@@ -34,6 +34,7 @@ class UsersRepository(
 
     suspend fun updateUser(oldName: String, newName: String) {
         withContext(Dispatchers.IO) {
+            appSettings.setUserName(newName)
             usersDao.updateUserName(oldName, newName)
         }
     }

@@ -36,7 +36,7 @@ class NotificationReceiver : BroadcastReceiver() {
             }
         }
 
-        val notificationBuilder = NotificationCompat.Builder(context, context.packageName)
+        val notificationBuilder = NotificationCompat.Builder(context, "NOTIFICATION_CHANNEL${context.packageName}")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(intent.getStringExtra("PLANNER_APP_NOTIFICATION_USER"))
             .setContentText(intent.getStringExtra("PLANNER_APP_NOTIFICATION_TEXT"))
@@ -44,6 +44,6 @@ class NotificationReceiver : BroadcastReceiver() {
             .setDefaults(Notification.DEFAULT_SOUND)
             .setAutoCancel(true)
 
-        notificationBuilderManager.notify(1, notificationBuilder.build())
+        notificationBuilderManager.notify(0, notificationBuilder.build())
     }
 }

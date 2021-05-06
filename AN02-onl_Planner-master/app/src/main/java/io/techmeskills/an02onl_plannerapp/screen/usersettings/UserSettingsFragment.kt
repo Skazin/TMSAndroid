@@ -37,6 +37,7 @@ class UserSettingsFragment : NavigationFragment<EditUserFragmentBinding>(R.layou
         viewBinding.btnChangeName.setOnClickListener {
             if(viewBinding.changeName.text.isNotBlank()) {
                     viewModel.updateUser(viewBinding.changeName.text.toString())
+                    viewBinding.changeName.text.clear()
             } else {
                 Toast.makeText(requireContext(), "Please, enter new user's name", Toast.LENGTH_LONG)
                     .show()
