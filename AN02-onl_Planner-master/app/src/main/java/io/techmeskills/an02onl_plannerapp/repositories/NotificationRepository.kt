@@ -28,11 +28,20 @@ class NotificationRepository(private val context: Context, private val alarmMana
         alarmManager.cancel(makeIntent(note))
     }
 
+    fun postponeNotification(note: Note): Note {
+        val currentTime = dateFormatter.parse(note.date)
+        val calendar = Calendar.getInstance()
+        calendar.time = currentTime
+        calendar.add(Calendar.MINUTE, 5)
+        return note.copy(date = dateFormatter.format(calendar.time))
+    }
+
     private fun makeIntent(note: Note): PendingIntent {
         val intent = Intent(context, NotificationReceiver::class.java)
-        intent.action = "PLANNER_APP_NOTIFICATION"
-        intent.putExtra("PLANNER_APP_NOTIFICATION_TEXT", note.title)
-        intent.putExtra("PLANNER_APP_NOTIFICATION_USER", note.userName)
+        intent.action = NotificationReceiver.ACTION
+        intent.putExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_ID, note.id)
+        intent.putExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_TEXT, note.title)
+        intent.putExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_OWNER, note.userName)
         return PendingIntent.getBroadcast(context, 0, intent, 0)
     }
 }

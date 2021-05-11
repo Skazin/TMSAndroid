@@ -66,4 +66,23 @@ class NotesRepository(
             notesDao.deleteNote(note)
         }
     }
+
+    suspend fun deleteNoteById(noteId: Long) {
+        withContext(Dispatchers.IO) {
+            val currentNote = notesDao.getNoteById(noteId)
+            notificationRepository.unsetNotification(currentNote)
+            notesDao.deleteNote(currentNote)
+        }
+    }
+
+    suspend fun postponeNoteById(noteId: Long) {
+        withContext(Dispatchers.IO) {
+            val currentNote = notesDao.getNoteById(noteId)
+            notificationRepository.unsetNotification(currentNote)
+            val newNote = notificationRepository.postponeNotification(currentNote)
+            notesDao.updateNote(newNote)
+            notificationRepository.setNotification(newNote)
+        }
+    }
+
 }

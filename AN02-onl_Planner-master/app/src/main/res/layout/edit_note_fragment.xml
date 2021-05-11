@@ -26,6 +26,7 @@
         android:layout_margin="16dp"
         android:background="@color/white"
         android:elevation="4dp"
+        android:text=""
         android:hint="@string/enter_your_note"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
