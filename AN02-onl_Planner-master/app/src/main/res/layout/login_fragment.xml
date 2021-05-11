@@ -39,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:hint="@string/enter_user_name"
+        android:inputType="textCapWords"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

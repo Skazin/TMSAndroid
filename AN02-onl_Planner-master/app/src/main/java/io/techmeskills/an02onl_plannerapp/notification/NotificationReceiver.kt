@@ -63,7 +63,7 @@ class NotificationReceiver : BroadcastReceiver() {
         )
 
         return NotificationCompat.Action.Builder(
-            R.drawable.ic_delete,
+            R.drawable.ic_delete_x_black,
             "Delete",
             pendingDeleteIntent
         ).build()
@@ -82,7 +82,7 @@ class NotificationReceiver : BroadcastReceiver() {
         )
 
         return NotificationCompat.Action.Builder(
-            R.drawable.ic_postpone,
+            R.drawable.ic_postpone_black,
             "Postpone",
             pendingPostponeIntent
         ).build()
