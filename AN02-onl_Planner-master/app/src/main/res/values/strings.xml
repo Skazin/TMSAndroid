@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AN02ONL_PlannerApp</string>
+    <string name="app_name">Scheduler</string>
     <string name="welcome">Welcome</string>
     <string name="click_me">Click Me</string>
     <string name="enter_your_note">Enter your note</string>

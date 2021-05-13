@@ -49,6 +49,7 @@
         android:background="@color/white"
         android:elevation="4dp"
         android:hint="Сменить имя пользователя"
+        android:inputType="textCapWords"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
