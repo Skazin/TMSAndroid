@@ -1,13 +1,11 @@
 package io.techmeskills.an02onl_plannerapp.screen.newscreen
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -32,7 +30,10 @@ class EditFragment : NavigationFragment<EditNoteFragmentBinding>(R.layout.edit_n
 
         viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)
         ) { _, _, _, _ -> }
+
         viewBinding.timePicker.setIs24HourView(true)
+
+        viewBinding.etNote.setText(args.note?.title)
 
         viewBinding.editButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {

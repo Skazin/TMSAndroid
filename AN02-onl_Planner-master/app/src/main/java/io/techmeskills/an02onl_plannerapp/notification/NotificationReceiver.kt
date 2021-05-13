@@ -21,7 +21,7 @@ class NotificationReceiver : BroadcastReceiver() {
     private fun showNotification(context: Context, intent: Intent) {
         val contentIntent = PendingIntent.getActivity(
             context, 0,
-            Intent(context, NotificationReceiver::class.java), 0
+            Intent(context, NotificationReceiver::class.java), PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val notificationBuilderManager =
@@ -39,8 +39,8 @@ class NotificationReceiver : BroadcastReceiver() {
         val notificationBuilder =
             NotificationCompat.Builder(context, NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(intent.getStringExtra("Hello, $noteOwner"))
-                .setContentText(intent.getStringExtra("May I remind of your business: $noteText"))
+                .setContentTitle("Hello, $noteOwner")
+                .setContentText("May I remind of your business: $noteText")
                 .setContentIntent(contentIntent)
                 .addAction(deleteAction(context, noteId))
                 .addAction(postponeAction(context, noteId))

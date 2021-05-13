@@ -1,6 +1,8 @@
 package io.techmeskills.an02onl_plannerapp.notification
 
+import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
@@ -22,6 +24,12 @@ class NotificationService : Service(), KoinComponent {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
+
+            val notificationBuilderManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            notificationBuilderManager.cancel(0)
+
             noteId = it.getLongExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_ID, -1)
             when(it.action) {
                 NotificationReceiver.ACTION_DELETE -> {
