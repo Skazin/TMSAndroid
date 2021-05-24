@@ -1,11 +1,11 @@
-package io.techmeskills.an02onl_plannerapp.screen.usersettings
+package io.techmeskills.an02onl_plannerapp.screen.settings
 
 import androidx.lifecycle.asLiveData
 import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
 import kotlinx.coroutines.launch
 
-class UserSettingsViewModel(private val usersRepository: UsersRepository) : CoroutineViewModel() {
+class SettingsViewModel(private val usersRepository: UsersRepository) : CoroutineViewModel() {
 
     val currentUserNameLiveData = usersRepository.getCurrentUserNameFlow().asLiveData()
 

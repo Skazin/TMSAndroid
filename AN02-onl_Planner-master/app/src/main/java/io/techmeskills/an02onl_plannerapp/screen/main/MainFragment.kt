@@ -58,7 +58,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewModel.progressLiveData.observe(this.viewLifecycleOwner) { success ->
             viewBinding.progressIndicator.isVisible = false
-            val cloudResult = if (success)  R.string.cloud_success else R.string.cloud_failed
+            val cloudResult = if (success)  R.string.fragment_main_cloud_success else R.string.fragment_main_cloud_failed
             Toast.makeText(requireContext(), cloudResult, Toast.LENGTH_LONG).show()
         }
 
@@ -77,7 +77,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         }
 
         viewBinding.userSettings.setOnClickListener {
-            findNavController().navigateSafe(MainFragmentDirections.toUserSettingsFragment())
+            findNavController().navigateSafe(MainFragmentDirections.toSettingsFragment())
         }
     }
 

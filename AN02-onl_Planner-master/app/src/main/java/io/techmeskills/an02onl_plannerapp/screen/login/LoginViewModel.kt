@@ -1,4 +1,4 @@
-package io.techmeskills.an02onl_plannerapp.screen.loginscreen
+package io.techmeskills.an02onl_plannerapp.screen.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

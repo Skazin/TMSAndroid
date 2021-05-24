@@ -51,10 +51,13 @@ class NotesRepository(
 
         suspend fun updateNote(note: Note) {
             withContext(Dispatchers.IO) {
-                val oldNote = notesDao.getNoteById(note.id)
-                notificationRepository.unsetNotification(oldNote)
+                notesDao.getNoteById(note.id)?.let { oldNote ->
+                    notificationRepository.unsetNotification(oldNote)
+                }
                 notesDao.updateNote(note)
-                notificationRepository.setNotification(note)
+                if (note.notificationOn) {
+                    notificationRepository.setNotification(note)
+                }
             }
         }
 

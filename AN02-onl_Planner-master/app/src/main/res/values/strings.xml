@@ -1,25 +1,43 @@
 <resources>
     <string name="app_name">Scheduler</string>
     <string name="welcome">Welcome</string>
-    <string name="click_me">Click Me</string>
-    <string name="cloud_failed">Cloud export failed</string>
-    <string name="cloud_no_notes">There\'s no clouded notes</string>
-    <string name="cloud_no_new_notes">There\'s no new notes</string>
-    <string name="cloud_success">Import successfully done</string>
-    <string name="enter_your_note">Enter your note</string>
+
     <string name="enter_note_date">Enter note date</string>
     <string name="date_pattern">DD.MM.YYYY</string>
-    <string name="add">Add</string>
-    <string name="edit">Edit</string>
-    <string name="add_new_note">Add New Note</string>
-    <string name="login">Log in</string>
-    <string name="enter_user_name">Enter user name</string>
-    <string name="logout_request_title">Log Out</string>
-    <string name="YES">Yep!</string>
-    <string name="NO">Nope</string>
-    <string name="pick_action">Do you really want to leave?</string>
-    <string name="delete_user_request_title">Log Out</string>
-    <string name="pick_delete_action">Do you really want to delete user?</string>
-    <string name="notificationCheckBoxText">Notification</string>
+
+    <string name="fragment_login_button_login">Log in</string>
+    <string name="fragment_login_etNote_hint">Enter user name</string>
+    <string name="fragment_login_text">Введите логин</string>
+    <string name="fragment_login_title">Hello</string>
+
+    <string name="fragment_new_note_button_add">Add</string>
+    <string name="fragment_new_note_button_edit">Edit</string>
+    <string name="fragment_new_note_etNote_hint">Enter your note</string>
+    <string name="fragment_new_note_notificationCheckBoxText">Notification</string>
+    <string name="fragment_new_note_title">New note</string>
+
+    <string name="fragment_edit_button_edit">Edit</string>
+    <string name="fragment_edit_etNote_hint">Edit your note</string>
+    <string name="fragment_edit_notificationCheckBoxText">Notification</string>
+    <string name="fragment_edit_title">Edit note</string>
+
+    <string name="fragment_main_add_new_note">Add New Note</string>
+    <string name="fragment_main_cloud_failed">Cloud export failed</string>
+    <string name="fragment_main_cloud_no_notes">There\'s no clouded notes</string>
+    <string name="fragment_main_cloud_no_new_notes">There\'s no new notes</string>
+    <string name="fragment_main_cloud_success">Import successfully done</string>
     <string name="fragment_main_title">Список дел</string>
+
+    <string name="fragment_settings_action_NO">Nope</string>
+    <string name="fragment_settings_action_YES">Yep!</string>
+    <string name="fragment_settings_button_change_user_name">Сменить</string>
+    <string name="fragment_settings_change_user_name">Сменить имя пользователя</string>
+    <string name="fragment_settings_delete_user">Удалить пользователя</string>
+    <string name="fragment_settings_delete_user_request_title">Log Out</string>
+    <string name="fragment_settings_exit">Выйти</string>
+    <string name="fragment_settings_login_request_title">Do you really want to leave?</string>
+    <string name="fragment_settings_logout_request_title">Log Out</string>
+    <string name="fragment_settings_pick_delete_action">Do you really want to delete user?</string>
+    <string name="fragment_settings_title">Учетная запись</string>
+    <string name="fragment_settings_user_name">Учетная запись</string>
 </resources>
