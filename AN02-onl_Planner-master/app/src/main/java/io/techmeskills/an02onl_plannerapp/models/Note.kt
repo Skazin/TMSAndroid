@@ -16,7 +16,8 @@ import kotlinx.parcelize.Parcelize
         )]
 )
 data class Note (
-        @PrimaryKey (autoGenerate = true) val id: Long = 0L,
+        @PrimaryKey (autoGenerate = true)
+        val id: Long = 0L,
 
         val title: String,
         val date: String,

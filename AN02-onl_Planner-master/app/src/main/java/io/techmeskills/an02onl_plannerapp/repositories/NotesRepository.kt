@@ -34,55 +34,53 @@ class NotesRepository(
 
     suspend fun newNote(note: Note) {
         withContext(Dispatchers.IO) {
-            notificationRepository.setNotification(note)
-            notesDao.insertNote(
-                Note(
-                    title = note.title,
-                    date = note.date,
-                    userName = appSettings.userName()
-                )
+            val id = notesDao.insertNote(
+                note.copy(userName = appSettings.userName())
             )
+            if (note.notificationOn) {
+                notificationRepository.setNotification(note.copy(id = id))
+            }
         }
     }
 
-    suspend fun newNotes(notes: List<Note>) {
-        withContext(Dispatchers.IO) {
-            notesDao.clearAndInsertNotes(notes)
+        suspend fun newNotes(notes: List<Note>) {
+            withContext(Dispatchers.IO) {
+                notesDao.clearAndInsertNotes(notes)
+            }
         }
-    }
 
-    suspend fun updateNote(note: Note) {
-        withContext(Dispatchers.IO) {
-            val oldNote = notesDao.getNoteById(note.id)
-            notificationRepository.unsetNotification(oldNote)
-            notesDao.updateNote(note)
-            notificationRepository.setNotification(note)
+        suspend fun updateNote(note: Note) {
+            withContext(Dispatchers.IO) {
+                val oldNote = notesDao.getNoteById(note.id)
+                notificationRepository.unsetNotification(oldNote)
+                notesDao.updateNote(note)
+                notificationRepository.setNotification(note)
+            }
         }
-    }
 
-    suspend fun deleteNote(note: Note) {
-        withContext(Dispatchers.IO) {
-            notificationRepository.unsetNotification(note)
-            notesDao.deleteNote(note)
+        suspend fun deleteNote(note: Note) {
+            withContext(Dispatchers.IO) {
+                notificationRepository.unsetNotification(note)
+                notesDao.deleteNote(note)
+            }
         }
-    }
 
-    suspend fun deleteNoteById(noteId: Long) {
-        withContext(Dispatchers.IO) {
-            val currentNote = notesDao.getNoteById(noteId)
-            notificationRepository.unsetNotification(currentNote)
-            notesDao.deleteNote(currentNote)
+        suspend fun deleteNoteById(noteId: Long) {
+            withContext(Dispatchers.IO) {
+                notesDao.getNoteById(noteId)?.let {
+                    notificationRepository.unsetNotification(it)
+                    notesDao.deleteNote(it)
+                }
+            }
         }
-    }
 
-    suspend fun postponeNoteById(noteId: Long) {
-        withContext(Dispatchers.IO) {
-            val currentNote = notesDao.getNoteById(noteId)
-            notificationRepository.unsetNotification(currentNote)
-            val newNote = notificationRepository.postponeNotification(currentNote)
-            notesDao.updateNote(newNote)
-            notificationRepository.setNotification(newNote)
+        suspend fun postponeNoteById(noteId: Long) {
+            withContext(Dispatchers.IO) {
+                val currentNote = notesDao.getNoteById(noteId)
+                notificationRepository.unsetNotification(currentNote)
+                val newNote = notificationRepository.postponeNotification(currentNote)
+                notesDao.updateNote(newNote)
+                notificationRepository.setNotification(newNote)
+            }
         }
-    }
-
 }

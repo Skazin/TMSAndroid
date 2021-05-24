@@ -2,6 +2,10 @@
     <string name="app_name">Scheduler</string>
     <string name="welcome">Welcome</string>
     <string name="click_me">Click Me</string>
+    <string name="cloud_failed">Cloud export failed</string>
+    <string name="cloud_no_notes">There\'s no clouded notes</string>
+    <string name="cloud_no_new_notes">There\'s no new notes</string>
+    <string name="cloud_success">Import successfully done</string>
     <string name="enter_your_note">Enter your note</string>
     <string name="enter_note_date">Enter note date</string>
     <string name="date_pattern">DD.MM.YYYY</string>
@@ -10,10 +14,6 @@
     <string name="add_new_note">Add New Note</string>
     <string name="login">Log in</string>
     <string name="enter_user_name">Enter user name</string>
-    <string name="cloud_failed">Failed to perform cloud operation</string>
-    <string name="no_notes">There\'s no clouded notes</string>
-    <string name="no_new_notes">There\'s no new notes</string>
-    <string name="all_good">Import successfully done</string>
     <string name="logout_request_title">Log Out</string>
     <string name="YES">Yep!</string>
     <string name="NO">Nope</string>
@@ -21,4 +21,5 @@
     <string name="delete_user_request_title">Log Out</string>
     <string name="pick_delete_action">Do you really want to delete user?</string>
     <string name="notificationCheckBoxText">Notification</string>
+    <string name="fragment_main_title">Список дел</string>
 </resources>

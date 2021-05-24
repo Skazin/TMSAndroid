@@ -32,6 +32,12 @@ class UsersRepository(
         }
     }
 
+    suspend fun userName(): String {
+        return withContext(Dispatchers.IO) {
+            appSettings.userName()
+        }
+    }
+
     suspend fun updateUser(oldName: String, newName: String) {
         withContext(Dispatchers.IO) {
             appSettings.setUserName(newName)
@@ -52,13 +58,6 @@ class UsersRepository(
     fun getCurrentUserNameFlow(): Flow<String> = appSettings.userNameFlow().flatMapLatest {
         appSettings.userNameFlow()
     }
-
-    suspend fun userName(): String {
-        return withContext(Dispatchers.IO) {
-            appSettings.userName()
-        }
-    }
-
 
     fun checkUserLoggedIn(): Flow<Boolean> =
             appSettings.userNameFlow().map { it.isNotEmpty() }.flowOn(Dispatchers.IO)

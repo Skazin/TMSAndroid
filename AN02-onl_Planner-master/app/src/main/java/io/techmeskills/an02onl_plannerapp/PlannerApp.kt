@@ -33,7 +33,7 @@ class PlannerApp : Application() {
 
     private val viewModels = module {
         viewModel { MainViewModel(get(), get()) }
-        viewModel { NewFragmentViewModel(get()) }
+        viewModel { NewFragmentViewModel(get(), get()) }
         viewModel { EditFragmentViewModel(get()) }
         viewModel { LoginViewModel(get())}
         viewModel { UserSettingsViewModel(get()) }

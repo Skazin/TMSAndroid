@@ -25,22 +25,23 @@ class NotificationService : Service(), KoinComponent {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
 
+            noteId = it.getLongExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_ID, -1)
+
             val notificationBuilderManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            notificationBuilderManager.cancel(0)
-
-            noteId = it.getLongExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_ID, -1)
             when(it.action) {
                 NotificationReceiver.ACTION_DELETE -> {
                     GlobalScope.launch {
                         notesRepository.deleteNoteById(noteId)
                     }
+                    notificationBuilderManager.cancel(0)
                 }
                 NotificationReceiver.ACTION_POSTPONE -> {
                     GlobalScope.launch {
                         notesRepository.postponeNoteById(noteId)
                     }
+                    notificationBuilderManager.cancel(0)
                 }
                 else -> Unit
             }

@@ -6,7 +6,6 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import io.techmeskills.an02onl_plannerapp.R
@@ -35,7 +34,7 @@ class NewFragment : NavigationFragment<AddNewNoteFragmentBinding>(R.layout.add_n
         viewBinding.addButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {
                 viewModel.addNewNote(
-                    Note(
+                    Note( //при добавлении id можно не указывать
                             title = viewBinding.etNote.text.toString(),
                             date = dateFormatter.format(viewBinding.datePicker.getSelectedDate(viewBinding.timePicker)),
                             userName = "",

@@ -55,7 +55,6 @@ class LoginFragment : NavigationFragment<LoginFragmentBinding>(R.layout.login_fr
             )
             viewBinding.etLogin.setAdapter(namesHintAdapter)
         }
-
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) = Unit

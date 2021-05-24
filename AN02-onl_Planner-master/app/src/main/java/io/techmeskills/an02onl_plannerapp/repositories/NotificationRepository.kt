@@ -29,7 +29,7 @@ class NotificationRepository(private val context: Context, private val alarmMana
     }
 
     fun postponeNotification(note: Note): Note {
-        val currentTime = dateFormatter.parse(note.date)
+        val currentTime = dateFormatter.parse(note.date)!!
         val calendar = Calendar.getInstance()
         calendar.time = currentTime
         calendar.add(Calendar.MINUTE, 5)
@@ -42,6 +42,6 @@ class NotificationRepository(private val context: Context, private val alarmMana
         intent.putExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_ID, note.id)
         intent.putExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_TEXT, note.title)
         intent.putExtra(NotificationReceiver.NOTIFICATION_KEY_NOTE_OWNER, note.userName)
-        return PendingIntent.getBroadcast(context, 0, intent, 0)
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 }

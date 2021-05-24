@@ -63,6 +63,7 @@
         android:textSize="20sp"
         android:button="@drawable/checkbox_button"
         android:buttonTint="#2929a3"
+        android:checked="false"
         app:layout_constraintEnd_toEndOf="@+id/timePicker"
         app:layout_constraintStart_toStartOf="@+id/timePicker"
         app:layout_constraintTop_toBottomOf="@+id/timePicker"/>
