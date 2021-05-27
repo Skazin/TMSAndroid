@@ -29,6 +29,12 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             onDelete = :: onCardDelete
     )
 
+    private val dataObserver = object : RecyclerView.AdapterDataObserver() {
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            viewBinding.recyclerView.scrollToPosition(0)
+        }
+    }
+
     private fun onCardClick(note: Note) {
         findNavController().navigateSafe(MainFragmentDirections.toEditFragment(note))
     }
@@ -79,6 +85,13 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.userSettings.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toSettingsFragment())
         }
+
+        adapter.registerAdapterDataObserver(dataObserver)
+    }
+
+    override fun onDestroyView() {
+        adapter.unregisterAdapterDataObserver(dataObserver)
+        super.onDestroyView()
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

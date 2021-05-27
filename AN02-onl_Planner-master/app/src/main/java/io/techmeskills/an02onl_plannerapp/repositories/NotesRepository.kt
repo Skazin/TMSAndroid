@@ -38,7 +38,7 @@ class NotesRepository(
                 note.copy(userName = appSettings.userName())
             )
             if (note.notificationOn) {
-                notificationRepository.setNotification(note.copy(id = id))
+                notificationRepository.setNotification(note.copy(id = id, userName = appSettings.userName()))
             }
         }
     }

@@ -17,7 +17,6 @@
         android:fitsSystemWindows="true"
         android:scaleType="center"
         android:src="@drawable/toolbar_background"
-        android:background="#2929a3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
         app:layout_constraintStart_toStartOf="parent"
         app:title="@string/fragment_main_title"
+        android:background="#2929a3"
         app:titleTextColor="@color/white">
 
         <ImageView

@@ -20,6 +20,8 @@ class MyRecyclerAdapter(
     private val onDelete: (Note) -> Unit
 ) : ListAdapter<Note, MyRecyclerAdapter.NoteViewHolder>(NoteAdapterDiffCallback()) {
 
+
+
     override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int

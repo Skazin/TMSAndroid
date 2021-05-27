@@ -26,8 +26,8 @@ class NewFragment : NavigationFragment<FragmentNewNoteBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)
-        ) { _, _, _, _ -> }
+//        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)
+//        ) { _, _, _, _ -> }
         viewBinding.timePicker.setIs24HourView(true)
 
 

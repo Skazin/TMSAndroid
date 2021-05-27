@@ -33,7 +33,7 @@
         tools:layout_editor_absoluteX="128dp"
         tools:layout_editor_absoluteY="226dp" />
 
-    <DatePicker
+    <io.techmeskills.an02onl_plannerapp.support.CustomDayPicker
         android:id="@+id/datePicker"
         android:datePickerMode="spinner"
         android:calendarViewShown= "false"
