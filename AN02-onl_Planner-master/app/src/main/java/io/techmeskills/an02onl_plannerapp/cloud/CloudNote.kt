@@ -3,8 +3,6 @@ package io.techmeskills.an02onl_plannerapp.cloud
 import com.google.gson.annotations.SerializedName
 
 class CloudNote(
-    @SerializedName("id")
-    val id: Long = -1,
 
     @SerializedName("title")
     val title: String,
@@ -12,6 +10,6 @@ class CloudNote(
     @SerializedName("date")
     val date: String,
 
-    @SerializedName("notification")
-    val notification: Boolean
+    @SerializedName("alarmEnabled")
+    val alarmEnabled: Boolean
 )

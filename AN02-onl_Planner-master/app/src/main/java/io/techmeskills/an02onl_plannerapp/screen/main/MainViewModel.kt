@@ -16,7 +16,6 @@ class MainViewModel(private val notesRepository: NotesRepository,
                     private val cloudRepository: CloudRepository
                     ) : CoroutineViewModel() {
 
-    val importProgressLiveData = MutableLiveData<Result>()
     val progressLiveData = MutableLiveData<Boolean>()
     val listLiveData = notesRepository.currentNotesFlow.flowOn(Dispatchers.IO).map { it }.asLiveData()
 
@@ -33,6 +32,6 @@ class MainViewModel(private val notesRepository: NotesRepository,
 
     fun importNotes() = launch {
         val result = cloudRepository.importNotes()
-        importProgressLiveData.postValue(result)
+        progressLiveData.postValue(result)
     }
 }

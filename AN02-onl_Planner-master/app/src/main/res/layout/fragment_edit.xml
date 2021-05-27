@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Edit note"
+        app:title="@string/fragment_edit_title"
         app:titleTextColor="@color/white">
     </androidx.appcompat.widget.Toolbar>
 
@@ -27,7 +27,7 @@
         android:background="@color/white"
         android:elevation="4dp"
         android:text=""
-        android:hint="@string/enter_your_note"
+        android:hint="@string/fragment_edit_etNote_hint"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
         android:id="@+id/notificationCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/notificationCheckBoxText"
+        android:text="@string/fragment_edit_notificationCheckBoxText"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:button="@drawable/checkbox_button"
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:paddingVertical="12dp"
-        android:text="@string/edit"
+        android:text="@string/fragment_edit_button_edit"
         app:layout_constraintEnd_toEndOf="@+id/notificationCheck"
         app:layout_constraintStart_toStartOf="@+id/notificationCheck"
         app:layout_constraintTop_toBottomOf="@+id/notificationCheck" />

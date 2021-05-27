@@ -11,11 +11,11 @@ import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
 import io.techmeskills.an02onl_plannerapp.repositories.NotificationRepository
 import io.techmeskills.an02onl_plannerapp.repositories.UsersRepository
-import io.techmeskills.an02onl_plannerapp.screen.loginscreen.LoginViewModel
+import io.techmeskills.an02onl_plannerapp.screen.login.LoginViewModel
 import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
-import io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragmentViewModel
-import io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragmentViewModel
-import io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsViewModel
+import io.techmeskills.an02onl_plannerapp.screen.edit.EditFragmentViewModel
+import io.techmeskills.an02onl_plannerapp.screen.newnote.NewFragmentViewModel
+import io.techmeskills.an02onl_plannerapp.screen.settings.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -33,10 +33,10 @@ class PlannerApp : Application() {
 
     private val viewModels = module {
         viewModel { MainViewModel(get(), get()) }
-        viewModel { NewFragmentViewModel(get()) }
+        viewModel { NewFragmentViewModel(get(), get()) }
         viewModel { EditFragmentViewModel(get()) }
         viewModel { LoginViewModel(get())}
-        viewModel { UserSettingsViewModel(get()) }
+        viewModel { SettingsViewModel(get()) }
         }
 
     private val storageModule = module {

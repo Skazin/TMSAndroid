@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fafafa">
@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Учетная запись"
+        app:title="@string/fragment_settings_title"
         app:titleTextColor="@color/white">
     </androidx.appcompat.widget.Toolbar>
 
@@ -24,7 +24,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackground"
-        android:text="Имя пользователя"
+        android:text="@string/fragment_settings_user_name"
         android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -48,7 +48,7 @@
         android:layout_margin="16dp"
         android:background="@color/white"
         android:elevation="4dp"
-        android:hint="Сменить имя пользователя"
+        android:hint="@string/fragment_settings_change_user_name"
         android:inputType="textCapWords"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
         android:id="@+id/btnChangeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Сменить"
+        android:text="@string/fragment_settings_button_change_user_name"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,7 @@
         android:layout_margin="16dp"
         android:background="@color/white"
         android:elevation="4dp"
-        android:text="Удалить пользователя"
+        android:text="@string/fragment_settings_delete_user"
         android:textSize="15sp"
         android:textStyle="bold"
         android:padding="16dp"
@@ -87,7 +87,7 @@
         android:layout_margin="16dp"
         android:background="@drawable/delete_background"
         android:elevation="4dp"
-        android:text="Выйти"
+        android:text="@string/fragment_settings_exit"
         android:textSize="15sp"
         android:textStyle="bold"
         android:padding="16dp"

@@ -17,21 +17,21 @@
             android:id="@+id/toEditFragment"
             app:destination="@+id/editFragment" />
         <action
-            android:id="@+id/toUserSettingsFragment"
+            android:id="@+id/toSettingsFragment"
             app:destination="@+id/userSettings"/>
     </fragment>
 
     <fragment
         android:id="@+id/newFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.NewFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.newnote.NewFragment"
         android:label="NewFragment"
-        tools:layout="@layout/add_new_note_fragment"/>
+        tools:layout="@layout/fragment_new_note"/>
 
     <fragment
         android:id="@+id/editFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.newscreen.EditFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.edit.EditFragment"
         android:label="EditFragment"
-        tools:layout="@layout/edit_note_fragment">
+        tools:layout="@layout/fragment_edit">
         <argument
             android:name="note"
             app:argType="io.techmeskills.an02onl_plannerapp.models.Note"
@@ -39,18 +39,18 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.loginscreen.LoginFragment"
+        android:name="io.techmeskills.an02onl_plannerapp.screen.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/login_fragment">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/toMainFragment"
             app:destination="@+id/mainFragment"
         /></fragment>
     <fragment
         android:id="@+id/userSettings"
-        android:name="io.techmeskills.an02onl_plannerapp.screen.usersettings.UserSettingsFragment"
-        android:label="UserSettingsFragment"
-        tools:layout="@layout/edit_user_fragment">
+        android:name="io.techmeskills.an02onl_plannerapp.screen.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/toLoginFragment"
             app:destination="@+id/loginFragment"/>
