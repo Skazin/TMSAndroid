@@ -2,7 +2,6 @@ package io.techmeskills.an02onl_plannerapp.models
 
 import android.os.Parcelable
 import androidx.room.*
-import androidx.room.util.TableInfo
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -20,7 +19,7 @@ data class Note (
         val id: Long = 0L,
 
         val title: String,
-        val date: String,
+        val date: Long,
 
         @ColumnInfo(index = true, name = "userName")
         val userName: String,

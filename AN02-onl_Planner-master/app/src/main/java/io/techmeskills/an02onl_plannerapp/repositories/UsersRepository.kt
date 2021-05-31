@@ -7,6 +7,7 @@ import io.techmeskills.an02onl_plannerapp.database.dao.UsersDao
 import io.techmeskills.an02onl_plannerapp.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.models.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
@@ -55,6 +56,7 @@ class UsersRepository(
         User(it)
     }
 
+    @ExperimentalCoroutinesApi
     fun getCurrentUserNameFlow(): Flow<String> = appSettings.userNameFlow().flatMapLatest {
         appSettings.userNameFlow()
     }

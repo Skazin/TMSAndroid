@@ -24,15 +24,22 @@ class CustomDayPicker @JvmOverloads constructor(
 
     var onDayChangeCallback: DateChangeListener? = null
 
-    val selectedDate: Date?
-    get() {
-        return (daysRecyclerView.adapter as DaysAdapter).selectedDate
-    }
+//    var selectedDate: Date?
+//    get() {
+//        return (daysRecyclerView.adapter as? DaysAdapter)?.selectedDate
+//    }
+//    set(value) {
+//        (daysRecyclerView.adapter as? DaysAdapter)?.selectedDate = value
+//    }
 
     init {
         View.inflate(context, R.layout.custom_calendar_view, this)
         daysRecyclerView.adapter = DaysAdapter(generateDays()) {
             onDayChangeCallback?.onDateChanged(it)
+        }
+
+        buttonToday.setOnClickListener {
+            daysRecyclerView.scrollToPosition(0)
         }
     }
 
@@ -55,7 +62,10 @@ class CustomDayPicker @JvmOverloads constructor(
     ): RecyclerView.Adapter<DaysViewHolder>() {
 
         var selectedDate: Date? = null
-        private set
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DaysViewHolder {
             return DaysViewHolder(

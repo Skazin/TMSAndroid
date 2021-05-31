@@ -1,7 +1,6 @@
 package io.techmeskills.an02onl_plannerapp
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment

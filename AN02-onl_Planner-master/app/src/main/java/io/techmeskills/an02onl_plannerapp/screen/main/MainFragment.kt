@@ -14,7 +14,6 @@ import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
-import io.techmeskills.an02onl_plannerapp.support.Result
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
