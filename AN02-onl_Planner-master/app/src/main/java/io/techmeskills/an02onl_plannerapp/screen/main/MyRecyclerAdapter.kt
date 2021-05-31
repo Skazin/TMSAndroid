@@ -14,11 +14,15 @@ import androidx.recyclerview.widget.ListAdapter
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.R.drawable.*
 import io.techmeskills.an02onl_plannerapp.models.Note
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MyRecyclerAdapter(
     private val onClick: (Note) -> Unit,
     private val onDelete: (Note) -> Unit
 ) : ListAdapter<Note, MyRecyclerAdapter.NoteViewHolder>(NoteAdapterDiffCallback()) {
+
+
 
     override fun onCreateViewHolder(
             parent: ViewGroup,
@@ -58,7 +62,7 @@ class MyRecyclerAdapter(
 
         fun bind(item: Note) {
             largeTextView.text = item.title
-            smallTextView.text = item.date
+            smallTextView.text = dateFormatter.format((Date(item.date)))
             if(item.notificationOn) {
                 notification.setImageResource(ic_notification_on)
             } else notification.setImageResource(ic_notification_off)
@@ -67,6 +71,10 @@ class MyRecyclerAdapter(
             } else cloudCheck.setImageResource(ic_not_cloud)
 
         }
+    }
+
+    companion object {
+        private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
     }
 }
 
@@ -113,7 +121,7 @@ open class SwipeToDeleteCallback(private val background: Drawable?, private val 
 
             // Draw the delete icon
             deleteIcon!!.setBounds(deleteIconLeft, deleteIconTop, deleteIconRight, deleteIconBottom)
-            deleteIcon!!.draw(c)
+            deleteIcon.draw(c)
 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }

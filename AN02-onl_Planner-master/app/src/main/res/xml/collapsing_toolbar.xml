@@ -26,6 +26,20 @@
                     app:attributeName="imageAlpha"
                     app:customIntegerValue="0" />
             </KeyAttribute>
+            <KeyAttribute
+                app:framePosition="60"
+                app:motionTarget="@id/toolbar">
+                <CustomAttribute
+                    app:attributeName="backgroundColor"
+                    app:customColorValue="@android:color/transparent" />
+            </KeyAttribute>
+            <KeyAttribute
+                app:framePosition="90"
+                app:motionTarget="@id/toolbar">
+                <CustomAttribute
+                    app:attributeName="backgroundColor"
+                    app:customColorValue="#2929a3" />
+            </KeyAttribute>
         </KeyFrameSet>
     </Transition>
 
@@ -48,6 +62,9 @@
             android:scaleY="1.0"
             app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
             app:layout_constraintStart_toStartOf="parent">
+            <CustomAttribute
+                app:attributeName="backgroundColor"
+                app:customColorValue="@android:color/transparent" />
         </Constraint>
 
     </ConstraintSet>
@@ -72,6 +89,9 @@
             app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/toolbar_image">
+            <CustomAttribute
+                app:attributeName="backgroundColor"
+                app:customColorValue="#2929a3" />
         </Constraint>
 
     </ConstraintSet>

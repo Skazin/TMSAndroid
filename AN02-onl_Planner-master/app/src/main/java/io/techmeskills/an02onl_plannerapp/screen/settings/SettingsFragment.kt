@@ -12,6 +12,7 @@ import io.techmeskills.an02onl_plannerapp.databinding.FragmentSettingsBinding
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
@@ -19,6 +20,7 @@ class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fr
     override val viewBinding: FragmentSettingsBinding by viewBinding()
     private val viewModel: SettingsViewModel by viewModel()
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

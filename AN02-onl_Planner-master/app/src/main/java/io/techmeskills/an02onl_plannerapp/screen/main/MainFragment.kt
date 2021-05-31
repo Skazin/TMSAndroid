@@ -14,7 +14,6 @@ import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentMainBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
-import io.techmeskills.an02onl_plannerapp.support.Result
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,6 +27,12 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             onClick = :: onCardClick,
             onDelete = :: onCardDelete
     )
+
+    private val dataObserver = object : RecyclerView.AdapterDataObserver() {
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            viewBinding.recyclerView.scrollToPosition(0)
+        }
+    }
 
     private fun onCardClick(note: Note) {
         findNavController().navigateSafe(MainFragmentDirections.toEditFragment(note))
@@ -79,6 +84,13 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         viewBinding.userSettings.setOnClickListener {
             findNavController().navigateSafe(MainFragmentDirections.toSettingsFragment())
         }
+
+        adapter.registerAdapterDataObserver(dataObserver)
+    }
+
+    override fun onDestroyView() {
+        adapter.unregisterAdapterDataObserver(dataObserver)
+        super.onDestroyView()
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

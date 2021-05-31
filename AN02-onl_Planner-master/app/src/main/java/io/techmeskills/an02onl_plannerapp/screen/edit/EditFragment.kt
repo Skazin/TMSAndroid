@@ -2,8 +2,6 @@ package io.techmeskills.an02onl_plannerapp.screen.edit
 
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
@@ -15,14 +13,13 @@ import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_edit) {
 
-    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
     override val viewBinding: FragmentEditBinding by viewBinding()
     private val calendar = Calendar.getInstance()
+    private var selectedDate: Calendar = Calendar.getInstance().apply { time = Date() }
     private val args: EditFragmentArgs by navArgs()
     private val viewModel: EditFragmentViewModel by viewModel()
 
@@ -42,7 +39,7 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                         Note(
                                 id = it.id,
                                 title = viewBinding.etNote.text.toString(),
-                                date = dateFormatter.format(viewBinding.datePicker.getSelectedDate(viewBinding.timePicker)),
+                                date = selectedDate.timeInMillis,
                                 userName = it.userName,
                                 notificationOn = viewBinding.notificationCheck.isChecked
                         )
@@ -54,16 +51,6 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                     .show()
             }
         }
-    }
-
-    private fun DatePicker.getSelectedDate(timePicker: TimePicker): Date {
-        val calendar = Calendar.getInstance(Locale.getDefault())
-        calendar.set(Calendar.YEAR, this.year)
-        calendar.set(Calendar.MONTH, this.month)
-        calendar.set(Calendar.DAY_OF_MONTH, this.dayOfMonth)
-        calendar.set(Calendar.HOUR_OF_DAY, timePicker.hour)
-        calendar.set(Calendar.MINUTE, timePicker.minute)
-        return calendar.time
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

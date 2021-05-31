@@ -5,6 +5,7 @@ import io.techmeskills.an02onl_plannerapp.database.dao.UsersDao
 import io.techmeskills.an02onl_plannerapp.datastore.AppSettings
 import io.techmeskills.an02onl_plannerapp.models.Note
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.withContext
@@ -16,6 +17,7 @@ class NotesRepository(
     private val notificationRepository: NotificationRepository
 ) {
 
+    @ExperimentalCoroutinesApi
     val currentNotesFlow: Flow<List<Note>> =
         appSettings.userNameFlow()
             .flatMapLatest { userName ->
@@ -38,7 +40,7 @@ class NotesRepository(
                 note.copy(userName = appSettings.userName())
             )
             if (note.notificationOn) {
-                notificationRepository.setNotification(note.copy(id = id))
+                notificationRepository.setNotification(note.copy(id = id, userName = appSettings.userName()))
             }
         }
     }
@@ -51,7 +53,7 @@ class NotesRepository(
 
         suspend fun updateNote(note: Note) {
             withContext(Dispatchers.IO) {
-                notesDao.getNoteById(note.id)?.let { oldNote ->
+                notesDao.getNoteById(note.id).let { oldNote ->
                     notificationRepository.unsetNotification(oldNote)
                 }
                 notesDao.updateNote(note)
@@ -70,7 +72,7 @@ class NotesRepository(
 
         suspend fun deleteNoteById(noteId: Long) {
             withContext(Dispatchers.IO) {
-                notesDao.getNoteById(noteId)?.let {
+                notesDao.getNoteById(noteId).let {
                     notificationRepository.unsetNotification(it)
                     notesDao.deleteNote(it)
                 }
