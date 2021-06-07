@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MainViewModel(private val notesRepository: NotesRepository,
                     private val cloudRepository: CloudRepository
@@ -18,7 +19,8 @@ class MainViewModel(private val notesRepository: NotesRepository,
 
     val progressLiveData = MutableLiveData<Boolean>()
     @ExperimentalCoroutinesApi
-    val listLiveData = notesRepository.currentNotesFlow.flowOn(Dispatchers.IO).map { it }.asLiveData()
+    var listLiveData = notesRepository.currentNotesFlow.flowOn(Dispatchers.IO).map { it }.asLiveData()
+    val filterLiveData = MutableLiveData<List<Note>>()
 
     fun deleteNote(note: Note) {
         launch {
@@ -34,5 +36,38 @@ class MainViewModel(private val notesRepository: NotesRepository,
     fun importNotes() = launch {
         val result = cloudRepository.importNotes()
         progressLiveData.postValue(result)
+    }
+
+    fun filterNotes(text: String?) {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = mutableListOf<Note>()
+
+            for (item in currentNotes) {
+                if (item.title.toLowerCase(Locale.ROOT)
+                        .contains(text!!.toLowerCase(Locale.ROOT))) {
+                    filteredNotes.add(item)
+                }
+                filterLiveData.postValue(filteredNotes)
+            }
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    fun filterByAlphabet() {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = currentNotes.sortedBy { it.title }
+            filterLiveData.postValue(filteredNotes)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    fun filterByDate() {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = currentNotes.sortedBy { it.date }
+            filterLiveData.postValue(filteredNotes)
+        }
     }
 }

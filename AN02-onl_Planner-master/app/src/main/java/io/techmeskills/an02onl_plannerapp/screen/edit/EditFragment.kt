@@ -2,6 +2,8 @@ package io.techmeskills.an02onl_plannerapp.screen.edit
 
 import android.os.Bundle
 import android.view.View
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
@@ -39,7 +41,7 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                         Note(
                                 id = it.id,
                                 title = viewBinding.etNote.text.toString(),
-                                date = selectedDate.timeInMillis,
+                                date = viewBinding.datePicker.getSelectedDate(viewBinding.timePicker).time,
                                 userName = it.userName,
                                 notificationOn = viewBinding.notificationCheck.isChecked
                         )
@@ -51,6 +53,15 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                     .show()
             }
         }
+    }
+
+    private fun DatePicker.getSelectedDate(timePicker: TimePicker): Date {
+        selectedDate.set(Calendar.YEAR, this.year)
+        selectedDate.set(Calendar.MONTH, this.month)
+        selectedDate.set(Calendar.DAY_OF_MONTH, this.dayOfMonth)
+        selectedDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
+        selectedDate.set(Calendar.MINUTE, timePicker.minute)
+        return selectedDate.time
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {

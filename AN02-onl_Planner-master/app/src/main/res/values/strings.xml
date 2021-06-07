@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Scheduler</string>
-    <string name="welcome">Welcome</string>
-
     <string name="enter_note_date">Enter note date</string>
     <string name="date_pattern">DD.MM.YYYY</string>
+    <string name="planner_app_widget">Planner AppWidget</string>
+    <string name="query_hint">Поиск</string>
+    <string name="welcome">Welcome</string>
+    <string name="widget_title">No closest events</string>
 
     <string name="fragment_login_button_login">Log in</string>
     <string name="fragment_login_etNote_hint">Enter user name</string>

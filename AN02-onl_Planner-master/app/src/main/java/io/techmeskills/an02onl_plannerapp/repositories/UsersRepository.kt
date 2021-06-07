@@ -17,7 +17,8 @@ import kotlinx.coroutines.withContext
 class UsersRepository(
     context: Context,
     private val usersDao: UsersDao,
-    private val appSettings: AppSettings
+    private val appSettings: AppSettings,
+    private val broadcastRepository: BroadcastRepository
     ) {
 
     val userNames = usersDao.getAllUserNames()
@@ -31,6 +32,7 @@ class UsersRepository(
                 appSettings.setUserName(userName)
             }
         }
+        broadcastRepository.broadcastNotesUpdate()
     }
 
     suspend fun userName(): String {
@@ -68,6 +70,7 @@ class UsersRepository(
         withContext(Dispatchers.IO) {
             appSettings.setUserName("")
         }
+        broadcastRepository.broadcastNotesUpdate()
     }
 
     suspend fun deleteCurrent() {

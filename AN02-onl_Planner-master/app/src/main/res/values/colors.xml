@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
+    <color name="grey">#fafafa</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="grey_dark">#33000000</color>
+    <color name="app_back_color">#ffd9e3</color>
 </resources>

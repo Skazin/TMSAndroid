@@ -57,6 +57,7 @@
             android:src="@drawable/ic_cloud_upload"
             android:contentDescription="@null"
             app:tint="@color/white"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -68,6 +69,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+    <SearchView
+        android:id="@+id/searchCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressIndicator"
+        android:iconifiedByDefault="false"
+        android:queryHint="@string/query_hint"/>
+
+    <ImageView
+        android:id="@+id/sortCards"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="@id/searchCard"
+        app:layout_constraintTop_toBottomOf="@id/progressIndicator"
+        app:layout_constraintBottom_toBottomOf="@id/searchCard"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_sort"
+        app:tint="#2929a3"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -82,7 +103,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/searchCard"
         tools:listitem="@layout/recyclerview_item"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
