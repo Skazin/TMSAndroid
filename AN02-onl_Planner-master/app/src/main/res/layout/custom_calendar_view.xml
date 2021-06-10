@@ -19,6 +19,7 @@
         android:id="@+id/pickToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#2929a3"
         android:text="Today"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

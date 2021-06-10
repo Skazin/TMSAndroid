@@ -54,7 +54,7 @@ class MainViewModel(private val notesRepository: NotesRepository,
     }
 
     @ExperimentalCoroutinesApi
-    fun filterByAlphabet() {
+    fun filterByAlphabetAZ() {
         launch {
             val currentNotes = notesRepository.getCurrentUserNotes()
             val filteredNotes = currentNotes.sortedBy { it.title }
@@ -63,10 +63,45 @@ class MainViewModel(private val notesRepository: NotesRepository,
     }
 
     @ExperimentalCoroutinesApi
-    fun filterByDate() {
+    fun filterByAlphabetZA() {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = currentNotes.sortedBy { it.title }.reversed()
+            filterLiveData.postValue(filteredNotes)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    fun filterByDate19() {
         launch {
             val currentNotes = notesRepository.getCurrentUserNotes()
             val filteredNotes = currentNotes.sortedBy { it.date }
+            filterLiveData.postValue(filteredNotes)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    fun filterByDate91() {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = currentNotes.sortedBy { it.date }.reversed()
+            filterLiveData.postValue(filteredNotes)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    fun filterByAdding19() {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = currentNotes.sortedBy { it.dateOfBirth }
+            filterLiveData.postValue(filteredNotes)
+        }
+    }
+    @ExperimentalCoroutinesApi
+    fun filterByAdding91() {
+        launch {
+            val currentNotes = notesRepository.getCurrentUserNotes()
+            val filteredNotes = currentNotes.sortedBy { it.dateOfBirth }.reversed()
             filterLiveData.postValue(filteredNotes)
         }
     }

@@ -94,16 +94,48 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             popupMenu.inflate(R.menu.popup_menu)
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.Alphabet -> {
-                        viewModel.filterByAlphabet()
+                    R.id.AlphabetAZ -> {
+                        viewModel.filterByAlphabetAZ()
                         viewModel.filterLiveData.observe(this.viewLifecycleOwner) {
                             adapter.submitList(it)
                             viewBinding.recyclerView.scrollToPosition(0)
                         }
                         true
                     }
-                    R.id.Date -> {
-                        viewModel.filterByDate()
+                    R.id.AlphabetZA -> {
+                        viewModel.filterByAlphabetZA()
+                        viewModel.filterLiveData.observe(this.viewLifecycleOwner) {
+                            adapter.submitList(it)
+                            viewBinding.recyclerView.scrollToPosition(0)
+                        }
+                        true
+                    }
+                    R.id.Date19 -> {
+                        viewModel.filterByDate19()
+                        viewModel.filterLiveData.observe(this.viewLifecycleOwner) {
+                            adapter.submitList(it)
+                            viewBinding.recyclerView.scrollToPosition(0)
+                        }
+                        true
+                    }
+                    R.id.Date91 -> {
+                        viewModel.filterByDate91()
+                        viewModel.filterLiveData.observe(this.viewLifecycleOwner) {
+                            adapter.submitList(it)
+                            viewBinding.recyclerView.scrollToPosition(0)
+                        }
+                        true
+                    }
+                    R.id.ByAdding19 -> {
+                        viewModel.filterByAdding19()
+                        viewModel.filterLiveData.observe(this.viewLifecycleOwner) {
+                            adapter.submitList(it)
+                            viewBinding.recyclerView.scrollToPosition(0)
+                        }
+                        true
+                    }
+                    R.id.ByAdding91 -> {
+                        viewModel.filterByAdding91()
                         viewModel.filterLiveData.observe(this.viewLifecycleOwner) {
                             adapter.submitList(it)
                             viewBinding.recyclerView.scrollToPosition(0)

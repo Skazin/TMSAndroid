@@ -25,5 +25,9 @@ data class Note (
         val userName: String,
 
         val fromCloud: Boolean = false,
-        val notificationOn: Boolean = false
+        val notificationOn: Boolean = false,
+
+        val dateOfBirth: Long,
+        val backgroundColor: String,
+        val notePinned: Boolean
 ) : Parcelable

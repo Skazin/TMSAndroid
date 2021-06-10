@@ -16,6 +16,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/fragment_new_note_title"
         app:titleTextColor="@color/white">
+
+        <CheckBox
+            android:id="@+id/notificationCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:text="@string/fragment_new_note_notificationCheckBoxText"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:button="@drawable/checkbox_button"
+            android:buttonTint="#ffffff"
+            android:checked="false" />
+        <CheckBox
+            android:id="@+id/notePin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:text="Pin"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:checked="false"/>
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
@@ -54,19 +77,25 @@
         app:layout_constraintTop_toBottomOf="@+id/datePicker"
         android:layout_centerHorizontal="true" />
 
-    <CheckBox
-        android:id="@+id/notificationCheck"
+    <TextView
+        android:id="@+id/chooseColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_new_note_notificationCheckBoxText"
-        android:textColor="@color/black"
+        android:layout_marginStart="10dp"
+        android:text="@string/fragment_new_note_choose_card_color"
         android:textSize="20sp"
-        android:button="@drawable/checkbox_button"
-        android:buttonTint="#2929a3"
-        android:checked="false"
-        app:layout_constraintEnd_toEndOf="@+id/timePicker"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/timePicker"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker"/>
+        app:layout_constraintTop_toBottomOf="@+id/timePicker"
+        app:layout_constraintEnd_toEndOf="@id/timePicker"/>
+
+    <com.skydoves.colorpickerview.ColorPickerView
+        android:id="@+id/colorSet"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="@+id/chooseColor"
+        app:layout_constraintTop_toBottomOf="@+id/chooseColor"
+        app:layout_constraintEnd_toEndOf="@id/chooseColor"/>
 
     <Button
         android:id="@+id/addButton"
@@ -74,9 +103,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:paddingVertical="12dp"
+        android:backgroundTint="#2929a3"
         android:text="@string/fragment_new_note_button_add"
-        app:layout_constraintEnd_toEndOf="@+id/notificationCheck"
-        app:layout_constraintStart_toStartOf="@+id/notificationCheck"
-        app:layout_constraintTop_toBottomOf="@+id/notificationCheck" />
+        app:layout_constraintEnd_toEndOf="@+id/colorSet"
+        app:layout_constraintStart_toStartOf="@+id/colorSet"
+        app:layout_constraintTop_toBottomOf="@+id/colorSet" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

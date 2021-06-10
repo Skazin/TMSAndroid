@@ -69,7 +69,7 @@ class MyRecyclerAdapter(
             if(item.fromCloud) {
                 cloudCheck.setImageResource(ic_cloud_check)
             } else cloudCheck.setImageResource(ic_not_cloud)
-
+            itemView.setBackgroundColor(Color.parseColor(item.backgroundColor))
         }
     }
 

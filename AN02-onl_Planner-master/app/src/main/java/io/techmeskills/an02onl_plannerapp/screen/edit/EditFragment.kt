@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentEditBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
@@ -21,16 +22,18 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
 
     override val viewBinding: FragmentEditBinding by viewBinding()
     private val calendar = Calendar.getInstance()
+    private var selectedColor: String = ""
     private var selectedDate: Calendar = Calendar.getInstance().apply { time = Date() }
     private val args: EditFragmentArgs by navArgs()
     private val viewModel: EditFragmentViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)
-        ) { _, _, _, _ -> }
-
         viewBinding.timePicker.setIs24HourView(true)
+
+        viewBinding.colorSet.setColorListener(ColorEnvelopeListener() {
+                envelope, _ ->  selectedColor = "#" + envelope.hexCode
+        })
 
         viewBinding.etNote.setText(args.note?.title)
 
@@ -41,9 +44,12 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                         Note(
                                 id = it.id,
                                 title = viewBinding.etNote.text.toString(),
-                                date = viewBinding.datePicker.getSelectedDate(viewBinding.timePicker).time,
+                                date = selectedDate.timeInMillis,
                                 userName = it.userName,
-                                notificationOn = viewBinding.notificationCheck.isChecked
+                                notificationOn = viewBinding.notificationCheck.isChecked,
+                                dateOfBirth = calendar.timeInMillis,
+                                backgroundColor = selectedColor,
+                                notePinned = viewBinding.notePin.isChecked
                         )
                 )
                 }
@@ -53,15 +59,6 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                     .show()
             }
         }
-    }
-
-    private fun DatePicker.getSelectedDate(timePicker: TimePicker): Date {
-        selectedDate.set(Calendar.YEAR, this.year)
-        selectedDate.set(Calendar.MONTH, this.month)
-        selectedDate.set(Calendar.DAY_OF_MONTH, this.dayOfMonth)
-        selectedDate.set(Calendar.HOUR_OF_DAY, timePicker.hour)
-        selectedDate.set(Calendar.MINUTE, timePicker.minute)
-        return selectedDate.time
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
