@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentNewNoteBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
@@ -21,11 +22,21 @@ class NewFragment : NavigationFragment<FragmentNewNoteBinding>(R.layout.fragment
 
     private val viewModel: NewFragmentViewModel by viewModel()
 
+    private val calendar = Calendar.getInstance()
+
+    private var selectedColor: String = ""
+
     private var selectedDate: Calendar = Calendar.getInstance().apply { time = Date() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         viewBinding.timePicker.setIs24HourView(true)
+
+        viewBinding.colorSet.setColorListener(ColorEnvelopeListener() {
+                envelope, _ ->  selectedColor = "#" + envelope.hexCode
+        })
+
+
 
         viewBinding.addButton.setOnClickListener {
             if (viewBinding.etNote.text.isNotBlank()) {
@@ -34,7 +45,10 @@ class NewFragment : NavigationFragment<FragmentNewNoteBinding>(R.layout.fragment
                             title = viewBinding.etNote.text.toString(),
                             date = selectedDate.timeInMillis,
                             userName = "",
-                            notificationOn = viewBinding.notificationCheck.isChecked
+                            notificationOn = viewBinding.notificationCheck.isChecked,
+                            dateOfBirth = calendar.timeInMillis,
+                            backgroundColor = selectedColor,
+                            notePinned = viewBinding.notePin.isChecked
                     )
                 )
                 findNavController().popBackStack()

@@ -11,5 +11,11 @@ class CloudNote(
     val date: Long,
 
     @SerializedName("alarmEnabled")
-    val alarmEnabled: Boolean
+    val alarmEnabled: Boolean,
+
+    @SerializedName("noteColor")
+    val noteColor: String,
+
+    @SerializedName("notePinned")
+    val notePinned: Boolean
 )

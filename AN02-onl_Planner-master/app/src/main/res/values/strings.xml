@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Scheduler</string>
-    <string name="welcome">Welcome</string>
-
     <string name="enter_note_date">Enter note date</string>
     <string name="date_pattern">DD.MM.YYYY</string>
+    <string name="planner_app_widget">Planner AppWidget</string>
+    <string name="query_hint">Поиск</string>
+    <string name="welcome">Welcome</string>
+    <string name="widget_title">No closest events</string>
 
     <string name="fragment_login_button_login">Log in</string>
     <string name="fragment_login_etNote_hint">Enter user name</string>
@@ -12,6 +14,8 @@
 
     <string name="fragment_new_note_button_add">Add</string>
     <string name="fragment_new_note_button_edit">Edit</string>
+    <string name="fragment_new_note_choose_card_color">Choose card\'s color</string>
+    <string name="fragment_new_note_color_not_chosen">Color not chosen. Set default color: White</string>
     <string name="fragment_new_note_etNote_hint">Enter your note</string>
     <string name="fragment_new_note_notificationCheckBoxText">Notification</string>
     <string name="fragment_new_note_title">New note</string>

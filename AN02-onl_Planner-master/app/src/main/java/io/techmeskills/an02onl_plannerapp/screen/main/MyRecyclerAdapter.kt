@@ -62,14 +62,14 @@ class MyRecyclerAdapter(
 
         fun bind(item: Note) {
             largeTextView.text = item.title
-            smallTextView.text = dateFormatter.format((Date(item.date)))
+            smallTextView.text = dateFormatter.format(Date(item.date))
             if(item.notificationOn) {
                 notification.setImageResource(ic_notification_on)
             } else notification.setImageResource(ic_notification_off)
             if(item.fromCloud) {
                 cloudCheck.setImageResource(ic_cloud_check)
             } else cloudCheck.setImageResource(ic_not_cloud)
-
+            itemView.setBackgroundColor(Color.parseColor(item.backgroundColor))
         }
     }
 

@@ -6,12 +6,15 @@ import io.techmeskills.an02onl_plannerapp.cloud.ExportNotesRequestBody
 import io.techmeskills.an02onl_plannerapp.cloud.IApi
 import io.techmeskills.an02onl_plannerapp.models.Note
 import kotlinx.coroutines.flow.first
+import java.util.*
 
 class CloudRepository(
     private val apiInterface: IApi,
     private val usersRepository: UsersRepository,
     private val notesRepository: NotesRepository
 ) {
+
+    private val calendar = Calendar.getInstance()
 
     suspend fun exportNotes(): Boolean {
         val user = usersRepository.getCurrentUserFlow().first()
@@ -21,7 +24,9 @@ class CloudRepository(
             CloudNote(
             title = it.title,
             date = it.date,
-            alarmEnabled = it.notificationOn
+            alarmEnabled = it.notificationOn,
+            noteColor = it.backgroundColor,
+            notePinned = it.notePinned
             )
         }
         val exportNotesRequestBody = ExportNotesRequestBody(cloudUser, usersRepository.phoneId, cloudNotes)
@@ -42,7 +47,10 @@ class CloudRepository(
                 date = cloudNote.date,
                 userName = user.name,
                 fromCloud = true,
-                notificationOn = cloudNote.alarmEnabled
+                notificationOn = cloudNote.alarmEnabled,
+                dateOfBirth = calendar.timeInMillis,
+                backgroundColor = cloudNote.noteColor,
+                notePinned = cloudNote.notePinned
             )
         }
         val currentNotes = notesRepository.getCurrentUserNotes()

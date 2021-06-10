@@ -8,13 +8,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class NotesRepository(
     private val notesDao: NotesDao,
     private val usersDao: UsersDao,
     private val appSettings: AppSettings,
-    private val notificationRepository: NotificationRepository
+    private val notificationRepository: NotificationRepository,
+    private val broadcastRepository: BroadcastRepository
 ) {
 
     @ExperimentalCoroutinesApi
@@ -27,6 +29,10 @@ class NotesRepository(
     suspend fun getCurrentUserNotes(): List<Note> =
         usersDao.getUserContent(appSettings.userName())?.notes ?: emptyList()
 
+    fun getClosestNote(): Note? {
+        val owner: String = runBlocking { appSettings.userName() }
+        return notesDao.getClosestNote(owner, System.currentTimeMillis())
+    }
 
     suspend fun setNotesSyncWithCloud() {
         withContext(Dispatchers.IO){
@@ -43,12 +49,14 @@ class NotesRepository(
                 notificationRepository.setNotification(note.copy(id = id, userName = appSettings.userName()))
             }
         }
+        broadcastRepository.broadcastNotesUpdate()
     }
 
         suspend fun newNotes(notes: List<Note>) {
             withContext(Dispatchers.IO) {
                 notesDao.clearAndInsertNotes(notes)
             }
+            broadcastRepository.broadcastNotesUpdate()
         }
 
         suspend fun updateNote(note: Note) {
@@ -61,6 +69,7 @@ class NotesRepository(
                     notificationRepository.setNotification(note)
                 }
             }
+            broadcastRepository.broadcastNotesUpdate()
         }
 
         suspend fun deleteNote(note: Note) {
@@ -68,6 +77,7 @@ class NotesRepository(
                 notificationRepository.unsetNotification(note)
                 notesDao.deleteNote(note)
             }
+            broadcastRepository.broadcastNotesUpdate()
         }
 
         suspend fun deleteNoteById(noteId: Long) {
@@ -77,6 +87,7 @@ class NotesRepository(
                     notesDao.deleteNote(it)
                 }
             }
+            broadcastRepository.broadcastNotesUpdate()
         }
 
         suspend fun postponeNoteById(noteId: Long) {

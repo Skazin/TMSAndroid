@@ -2,11 +2,14 @@ package io.techmeskills.an02onl_plannerapp.screen.edit
 
 import android.os.Bundle
 import android.view.View
+import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentEditBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
@@ -19,16 +22,18 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
 
     override val viewBinding: FragmentEditBinding by viewBinding()
     private val calendar = Calendar.getInstance()
+    private var selectedColor: String = ""
     private var selectedDate: Calendar = Calendar.getInstance().apply { time = Date() }
     private val args: EditFragmentArgs by navArgs()
     private val viewModel: EditFragmentViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewBinding.datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)
-        ) { _, _, _, _ -> }
-
         viewBinding.timePicker.setIs24HourView(true)
+
+        viewBinding.colorSet.setColorListener(ColorEnvelopeListener() {
+                envelope, _ ->  selectedColor = "#" + envelope.hexCode
+        })
 
         viewBinding.etNote.setText(args.note?.title)
 
@@ -41,7 +46,10 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                                 title = viewBinding.etNote.text.toString(),
                                 date = selectedDate.timeInMillis,
                                 userName = it.userName,
-                                notificationOn = viewBinding.notificationCheck.isChecked
+                                notificationOn = viewBinding.notificationCheck.isChecked,
+                                dateOfBirth = calendar.timeInMillis,
+                                backgroundColor = selectedColor,
+                                notePinned = viewBinding.notePin.isChecked
                         )
                 )
                 }

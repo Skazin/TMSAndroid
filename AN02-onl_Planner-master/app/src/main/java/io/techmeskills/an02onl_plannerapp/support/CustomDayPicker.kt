@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -20,17 +21,17 @@ class CustomDayPicker @JvmOverloads constructor(
 ) : ConstraintLayout(context, attributeSet, defStyle) {
 
     private val daysRecyclerView: RecyclerView by lazy { findViewById(R.id.days) }
-    private val buttonToday: RecyclerView by lazy { findViewById(R.id.pickToday) }
+    private val buttonToday: Button by lazy { findViewById(R.id.pickToday) }
 
     var onDayChangeCallback: DateChangeListener? = null
 
-//    var selectedDate: Date?
-//    get() {
-//        return (daysRecyclerView.adapter as? DaysAdapter)?.selectedDate
-//    }
-//    set(value) {
-//        (daysRecyclerView.adapter as? DaysAdapter)?.selectedDate = value
-//    }
+    var selectedDate: Date?
+    get() {
+        return (daysRecyclerView.adapter as? DaysAdapter)?.selectedDate
+    }
+    set(value) {
+        (daysRecyclerView.adapter as? DaysAdapter)?.selectedDate = value
+    }
 
     init {
         View.inflate(context, R.layout.custom_calendar_view, this)

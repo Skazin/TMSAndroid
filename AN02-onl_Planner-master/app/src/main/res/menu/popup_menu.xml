@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/AlphabetAZ"
+        android:title="Alphabet A-Z"/>
+    <item
+        android:id="@+id/AlphabetZA"
+        android:title="Alphabet Z-A"/>
+    <item
+        android:id="@+id/Date19"
+        android:title="Date (closest)" />
+    <item
+        android:id="@+id/Date91"
+        android:title="Date (latest)" />
+    <item
+        android:id="@+id/ByAdding19"
+        android:title="By adding (newest)" />
+    <item
+        android:id="@+id/ByAdding91"
+        android:title="By adding (oldest)" />
+</menu>

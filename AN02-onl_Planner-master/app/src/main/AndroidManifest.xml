@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AN02ONL_PlannerApp">
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -22,12 +23,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name=".notification.NotificationReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"/>
+
+        <receiver
+            android:name=".widget.PlannerAppWidget"
+            android:label="@string/planner_app_widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/planner_widget_provider" />
         </receiver>
+
         <service android:name=".notification.NotificationService"/>
+        <service
+            android:name=".widget.UpdateWidgetService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="PLANNER_APP_WIDGET_SYNC_ACTION" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

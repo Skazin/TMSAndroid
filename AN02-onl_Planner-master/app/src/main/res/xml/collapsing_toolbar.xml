@@ -27,14 +27,14 @@
                     app:customIntegerValue="0" />
             </KeyAttribute>
             <KeyAttribute
-                app:framePosition="60"
+                app:framePosition="20"
                 app:motionTarget="@id/toolbar">
                 <CustomAttribute
                     app:attributeName="backgroundColor"
                     app:customColorValue="@android:color/transparent" />
             </KeyAttribute>
             <KeyAttribute
-                app:framePosition="90"
+                app:framePosition="100"
                 app:motionTarget="@id/toolbar">
                 <CustomAttribute
                     app:attributeName="backgroundColor"
