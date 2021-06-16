@@ -11,13 +11,16 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import io.techmeskills.an02onl_plannerapp.R
+import org.koin.core.component.KoinApiExtension
 
 class NotificationReceiver : BroadcastReceiver() {
 
+    @KoinApiExtension
     override fun onReceive(context: Context, intent: Intent) {
         showNotification(context, intent)
     }
 
+    @KoinApiExtension
     private fun showNotification(context: Context, intent: Intent) {
         val contentIntent = PendingIntent.getActivity(
             context, 0,
@@ -50,6 +53,7 @@ class NotificationReceiver : BroadcastReceiver() {
         notificationBuilderManager.notify(0, notificationBuilder.build())
     }
 
+    @KoinApiExtension
     private fun deleteAction(context: Context, noteId: Long): NotificationCompat.Action {
         val deleteIntent = Intent(context.applicationContext, NotificationService::class.java)
         deleteIntent.action = ACTION_DELETE
@@ -69,6 +73,7 @@ class NotificationReceiver : BroadcastReceiver() {
         ).build()
     }
 
+    @KoinApiExtension
     private fun postponeAction(context: Context, noteId: Long): NotificationCompat.Action {
         val postponeIntent = Intent(context.applicationContext, NotificationService::class.java)
         postponeIntent.action = ACTION_POSTPONE

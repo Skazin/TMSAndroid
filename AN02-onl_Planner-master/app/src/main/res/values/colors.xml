@@ -3,6 +3,7 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
+    <color name="purple_main">#2929a3</color>
     <color name="yellow">#FFFF00</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
@@ -14,4 +15,10 @@
     <color name="grey_dark">#33000000</color>
     <color name="app_back_color">#ffd9e3</color>
 
+    <color name="colorPrimary">#35a393</color>
+    <color name="colorPrimaryDark">#257569</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#555555</color>
 </resources>

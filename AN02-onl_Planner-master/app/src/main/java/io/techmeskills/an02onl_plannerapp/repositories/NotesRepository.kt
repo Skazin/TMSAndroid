@@ -99,4 +99,10 @@ class NotesRepository(
                 notificationRepository.setNotification(newNote)
             }
         }
+
+        suspend fun pinNote(note: Note) {
+            withContext(Dispatchers.IO) {
+                notesDao.pinNote(note.id, note.notePinned.not())
+            }
+        }
 }

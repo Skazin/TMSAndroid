@@ -20,7 +20,6 @@ class MainActivity : SupportActivityInset<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-
         setWindowTransparency(this)
     }
 

@@ -41,6 +41,9 @@ abstract class NotesDao {
     @Query("SELECT * FROM notes WHERE :owner == userName ORDER BY ABS(:currTime-date) LIMIT 1")
     abstract fun getClosestNote(owner: String, currTime: Long): Note?
 
+    @Query("UPDATE notes SET notePinned = :notePinned WHERE id = :noteId")
+    abstract fun pinNote(noteId: Long, notePinned: Boolean)
+
     @Query("UPDATE notes SET fromCloud = 1")
     abstract fun getAllNotesSyncWithCloud()
 
