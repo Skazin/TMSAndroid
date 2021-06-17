@@ -57,9 +57,16 @@ class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fr
             }
         }
 
-        viewBinding.themeSwitch.setOnClickListener {
-            changeTheme()
-            initTheme()
+        when(getSavedTheme()) {
+            THEME_LIGHT ->  viewBinding.themeLight.isChecked = true
+            THEME_DARK -> viewBinding.themeDark.isChecked = true
+        }
+
+        viewBinding.themeGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId) {
+                R.id.themeLight -> setTheme(AppCompatDelegate.MODE_NIGHT_NO, THEME_LIGHT)
+                R.id.themeDark -> setTheme(AppCompatDelegate.MODE_NIGHT_YES, THEME_DARK)
+            }
         }
     }
 
@@ -101,34 +108,14 @@ class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fr
                 }.show()
     }
 
-    private fun changeTheme() {
-        if (viewBinding.themeSwitch.isChecked) {
-            setTheme(AppCompatDelegate.MODE_NIGHT_YES, THEME_DARK)
-        } else {
-            setTheme(AppCompatDelegate.MODE_NIGHT_NO, THEME_LIGHT)
-        }
-    }
-
     private fun setTheme(themeMode: Int, prefsMode: Int) {
         AppCompatDelegate.setDefaultNightMode(themeMode)
         saveTheme(prefsMode)
     }
 
-    private fun initTheme() {
-        when (getSavedTheme()) {
-            THEME_LIGHT -> viewBinding.themeSwitch.isChecked.not()
-            THEME_DARK -> viewBinding.themeSwitch.isChecked
-            THEME_UNDEFINED -> {
-                when (resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                    Configuration.UI_MODE_NIGHT_NO -> viewBinding.themeSwitch.isChecked.not()
-                    Configuration.UI_MODE_NIGHT_YES -> viewBinding.themeSwitch.isChecked
-                    Configuration.UI_MODE_NIGHT_UNDEFINED -> viewBinding.themeSwitch.isChecked.not()
-                }
-            }
-        }
-    }
-
     private fun saveTheme(theme: Int) = sharedPrefs?.edit()?.putInt(KEY_THEME, theme)?.apply()
-
-    private fun getSavedTheme() = sharedPrefs?.getInt(KEY_THEME, THEME_UNDEFINED)
+    private fun getSavedTheme() = sharedPrefs?.getInt(
+        io.techmeskills.an02onl_plannerapp.KEY_THEME,
+        io.techmeskills.an02onl_plannerapp.THEME_UNDEFINED
+    )
 }

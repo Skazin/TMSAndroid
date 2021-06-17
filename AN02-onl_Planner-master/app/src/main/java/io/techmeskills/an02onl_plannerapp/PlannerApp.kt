@@ -29,7 +29,7 @@ class PlannerApp : Application() {
             androidContext(this@PlannerApp)
             modules(listOf(viewModels, storageModule, repositoryModule, cloudModule, systemModule))
         }
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
     }
 
     @ExperimentalCoroutinesApi

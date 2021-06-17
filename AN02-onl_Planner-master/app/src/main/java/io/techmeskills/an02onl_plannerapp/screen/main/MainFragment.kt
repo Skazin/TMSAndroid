@@ -1,5 +1,7 @@
 package io.techmeskills.an02onl_plannerapp.screen.main
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
@@ -79,7 +81,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
         itemTouchHelper.attachToRecyclerView(viewBinding.recyclerView)
 
-        viewBinding.sortCards.setOnClickListener {
+        viewBinding.sortCards.setOnClickListener { it ->
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.inflate(R.menu.popup_menu)
             popupMenu.setOnMenuItemClickListener {

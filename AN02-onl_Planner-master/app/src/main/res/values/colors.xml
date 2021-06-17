@@ -11,14 +11,22 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="grey">#fafafa</color>
+    <color name="grey_dark">#212121</color>
     <color name="transparent">@android:color/transparent</color>
-    <color name="grey_dark">#33000000</color>
     <color name="app_back_color">#ffd9e3</color>
 
-    <color name="colorPrimary">#35a393</color>
-    <color name="colorPrimaryDark">#257569</color>
-    <color name="colorAccent">#D81B60</color>
-
-    <color name="textPrimary">#000000</color>
-    <color name="textSecondary">#555555</color>
+    <color name="colorToolBar">#3700B3</color>
+    <color name="colorEditText">#FFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorSecondaryVariant">#018786</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorError">#B00020</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnError">#FFFFFF</color>
 </resources>

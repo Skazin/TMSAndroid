@@ -50,6 +50,8 @@ class MainViewModel(private val notesRepository: NotesRepository,
     fun pinNote(note: Note) {
         launch {
             notesRepository.pinNote(note)
+            val sortedByPin = notesRepository.sortByPin()
+            (listLiveData as MutableLiveData).postValue(sortedByPin)
         }
     }
 

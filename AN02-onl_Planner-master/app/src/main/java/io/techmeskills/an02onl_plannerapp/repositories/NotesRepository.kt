@@ -105,4 +105,11 @@ class NotesRepository(
                 notesDao.pinNote(note.id, note.notePinned.not())
             }
         }
+
+        suspend fun sortByPin() : List<Note> {
+            return withContext(Dispatchers.IO) {
+                val user = runBlocking { appSettings.userName() }
+                 return@withContext notesDao.sortedByPinNotes(user)
+            }
+        }
 }

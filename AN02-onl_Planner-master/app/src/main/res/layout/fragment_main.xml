@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
     app:layoutDescription="@xml/collapsing_toolbar">
 
     <ImageView
@@ -23,13 +22,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/ToolBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
         app:layout_constraintStart_toStartOf="parent"
         app:title="@string/fragment_main_title"
-        android:background="@color/purple_main"
-        app:titleTextColor="@color/white">
+        >
 
         <ImageView
             android:id="@+id/cloudImport"
@@ -63,14 +62,14 @@
 
     <ImageView
         android:id="@+id/sortCards"
+        style="@style/ImageViewStyle"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:layout_constraintStart_toEndOf="@id/searchCard"
         app:layout_constraintTop_toBottomOf="@id/progressIndicator"
         app:layout_constraintBottom_toBottomOf="@id/searchCard"
         android:layout_marginStart="10dp"
-        android:src="@drawable/ic_sort"
-        app:tint="@color/purple_main"/>
+        android:src="@drawable/ic_sort" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -91,7 +90,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationBar"
         app:menu="@menu/navigation_menu"
-        app:itemBackground="@color/white"
+        style="@style/BottomNavigationViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
