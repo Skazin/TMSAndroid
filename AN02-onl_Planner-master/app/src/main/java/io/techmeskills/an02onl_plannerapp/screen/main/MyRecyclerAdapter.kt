@@ -117,6 +117,7 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
                 && oldItem.title == newItem.title
                 && oldItem.fromCloud == newItem.fromCloud
                 && oldItem.notificationOn == newItem.notificationOn
+                && oldItem.notePinned == newItem.notePinned
     }
 }
 

@@ -18,7 +18,7 @@ class MainViewModel(private val notesRepository: NotesRepository,
 
     val transferLiveData = MutableLiveData<Result>()
     private var filterText = ""
-    private var filterType = FilterType.DATE19
+    private var filterType = FilterType.ADD19
     var listLiveData: LiveData<List<Note>> = MutableLiveData()
 
     init {
@@ -38,6 +38,7 @@ class MainViewModel(private val notesRepository: NotesRepository,
             FilterType.DATE91 -> filterByDate91(list.filter {it.title.contains(filterText)})
             FilterType.ADD19 -> filterByAdding19(list.filter {it.title.contains(filterText)})
             FilterType.ADD91 -> filterByDate91(list.filter {it.title.contains(filterText)})
+            FilterType.PIN -> sortByPin(list)
         }
     }
 
@@ -50,7 +51,15 @@ class MainViewModel(private val notesRepository: NotesRepository,
     fun pinNote(note: Note) {
         launch {
             notesRepository.pinNote(note)
-            val sortedByPin = notesRepository.sortByPin()
+            sortByPin()
+        }
+    }
+
+    private fun sortByPin(notes: List<Note>? = null) {
+        filterType = FilterType.PIN
+        launch {
+            val currentNotes = notes ?: notesRepository.getCurrentUserNotes()
+            val sortedByPin = currentNotes.sortedByDescending { it.notePinned }
             (listLiveData as MutableLiveData).postValue(sortedByPin)
         }
     }
@@ -139,5 +148,6 @@ enum class FilterType {
     DATE19,
     DATE91,
     ADD19,
-    ADD91
+    ADD91,
+    PIN
 }

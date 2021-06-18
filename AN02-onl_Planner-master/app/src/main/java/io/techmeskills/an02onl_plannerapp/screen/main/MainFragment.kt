@@ -39,10 +39,16 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             onPin = :: onCardPin
     )
 
-    private var cloudResult = 0
-
     private val dataObserver = object : RecyclerView.AdapterDataObserver() {
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+            viewBinding.recyclerView.scrollToPosition(0)
+        }
+
+        override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+            viewBinding.recyclerView.scrollToPosition(0)
+        }
+
+        override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
             viewBinding.recyclerView.scrollToPosition(0)
         }
     }
@@ -150,7 +156,7 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
 
         viewModel.transferLiveData.observe(this.viewLifecycleOwner) { success ->
             viewBinding.progressIndicator.isVisible = false
-            cloudResult = when(success) {
+            val cloudResult = when(success) {
                 Result.NO_NOTES_IMPORT -> R.string.fragment_main_cloud_import_no_notes
                 Result.NO_NEW_NOTES_IMPORT -> R.string.fragment_main_cloud_import_no_new_notes
                 Result.ALL_GOOD_IMPORT -> R.string.fragment_main_cloud_import_success
