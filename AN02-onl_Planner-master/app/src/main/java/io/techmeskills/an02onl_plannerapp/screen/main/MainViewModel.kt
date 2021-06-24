@@ -7,16 +7,17 @@ import io.techmeskills.an02onl_plannerapp.repositories.CloudRepository
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
 import io.techmeskills.an02onl_plannerapp.repositories.Result
 import io.techmeskills.an02onl_plannerapp.support.CoroutineViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @ExperimentalCoroutinesApi
 class MainViewModel(private val notesRepository: NotesRepository,
                     private val cloudRepository: CloudRepository
                     ) : CoroutineViewModel() {
 
-    val transferLiveData = MutableLiveData<Result>()
     private var filterText = ""
     private var filterType = FilterType.ADD19
     var listLiveData: LiveData<List<Note>> = MutableLiveData()
@@ -64,14 +65,18 @@ class MainViewModel(private val notesRepository: NotesRepository,
         }
     }
 
-    fun exportNotes() = launch {
+    fun exportNotes(callback : (Result) -> Unit) = launch {
         val result = cloudRepository.exportNotes()
-        transferLiveData.postValue(result)
+        withContext(Dispatchers.Main) {
+            callback(result)
+        }
     }
 
-    fun importNotes() = launch {
+    fun importNotes(callback : (Result) -> Unit) = launch {
         val result = cloudRepository.importNotes()
-        transferLiveData.postValue(result)
+        withContext(Dispatchers.Main) {
+            callback(result)
+        }
     }
 
     fun filterNotes(text: String?) {

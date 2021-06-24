@@ -153,18 +153,6 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
         })
 
         adapter.registerAdapterDataObserver(dataObserver)
-
-        viewModel.transferLiveData.observe(this.viewLifecycleOwner) { success ->
-            viewBinding.progressIndicator.isVisible = false
-            val cloudResult = when(success) {
-                Result.NO_NOTES_IMPORT -> R.string.fragment_main_cloud_import_no_notes
-                Result.NO_NEW_NOTES_IMPORT -> R.string.fragment_main_cloud_import_no_new_notes
-                Result.ALL_GOOD_IMPORT -> R.string.fragment_main_cloud_import_success
-                Result.NO_NOTES_EXPORT -> R.string.fragment_main_cloud_export_no_notes
-                Result.ALL_GOOD_EXPORT -> R.string.fragment_main_cloud_export_success
-            }
-            Toast.makeText(requireContext(), cloudResult, Toast.LENGTH_LONG).show()
-        }
     }
 
     @ExperimentalCoroutinesApi
@@ -174,13 +162,25 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             .setMessage(R.string.fragment_main_cloud_choose_cloud_action)
             .setPositiveButton(R.string.fragment_main_cloud_export) { dialog, _ ->
                 viewBinding.progressIndicator.isVisible = true
-                viewModel.exportNotes()
+                viewModel.exportNotes(::cloudResult)
                 dialog.cancel()
             }.setNegativeButton(R.string.fragment_main_cloud_import) { dialog, _ ->
                 viewBinding.progressIndicator.isVisible = true
-                viewModel.importNotes()
+                viewModel.importNotes(::cloudResult)
                 dialog.cancel()
             }.show()
+    }
+
+    private fun cloudResult(result: Result) {
+        viewBinding.progressIndicator.isVisible = false
+        val cloudResult = when(result) {
+            Result.NO_NOTES_IMPORT -> R.string.fragment_main_cloud_import_no_notes
+            Result.NO_NEW_NOTES_IMPORT -> R.string.fragment_main_cloud_import_no_new_notes
+            Result.ALL_GOOD_IMPORT -> R.string.fragment_main_cloud_import_success
+            Result.NO_NOTES_EXPORT -> R.string.fragment_main_cloud_export_no_notes
+            Result.ALL_GOOD_EXPORT -> R.string.fragment_main_cloud_export_success
+        }
+        Toast.makeText(requireContext(), cloudResult, Toast.LENGTH_LONG).show()
     }
 
     @ExperimentalCoroutinesApi
