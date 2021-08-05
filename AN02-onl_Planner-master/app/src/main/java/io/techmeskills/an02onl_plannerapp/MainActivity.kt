@@ -1,7 +1,6 @@
 package io.techmeskills.an02onl_plannerapp
 
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment

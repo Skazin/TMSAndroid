@@ -8,6 +8,7 @@ import io.techmeskills.an02onl_plannerapp.models.Note
 import kotlinx.coroutines.flow.first
 import java.util.*
 
+
 class CloudRepository(
     private val apiInterface: IApi,
     private val usersRepository: UsersRepository,
@@ -17,6 +18,7 @@ class CloudRepository(
     private val calendar = Calendar.getInstance()
 
     suspend fun exportNotes(): Result {
+
         val user = usersRepository.getCurrentUserFlow().first()
         val notes = notesRepository.getCurrentUserNotes()
         if (notes.isEmpty()) return Result.NO_NOTES_EXPORT

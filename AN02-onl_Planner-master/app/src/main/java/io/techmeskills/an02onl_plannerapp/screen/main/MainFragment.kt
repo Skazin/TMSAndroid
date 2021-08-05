@@ -2,6 +2,9 @@ package io.techmeskills.an02onl_plannerapp.screen.main
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkRequest
 import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
@@ -133,7 +136,11 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
                     true
                 }
                 R.id.Cloud -> {
-                    showCloudDialog()
+                    if (isOnline()) {
+                        showCloudDialog()
+                    } else {
+                        Toast.makeText(requireContext(), R.string.fragment_main_no_network, Toast.LENGTH_LONG).show()
+                    }
                     true
                 }
                 else -> false
@@ -181,6 +188,12 @@ class MainFragment : NavigationFragment<FragmentMainBinding>(R.layout.fragment_m
             Result.ALL_GOOD_EXPORT -> R.string.fragment_main_cloud_export_success
         }
         Toast.makeText(requireContext(), cloudResult, Toast.LENGTH_LONG).show()
+    }
+
+    private fun isOnline() : Boolean {
+        val connectivityManager = ContextCompat.getSystemService(requireContext(), ConnectivityManager::class.java)
+        val capabilities = connectivityManager!!.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return capabilities != null
     }
 
     @ExperimentalCoroutinesApi
