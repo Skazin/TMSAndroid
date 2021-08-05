@@ -4,8 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
@@ -20,7 +18,6 @@ import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.SimpleFormatter
 
 class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_edit) {
 
@@ -39,7 +36,7 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
 
         viewBinding.timePicker.setIs24HourView(true)
 
-        viewBinding.colorSet.setColorListener(ColorEnvelopeListener() {
+        viewBinding.colorSet.setColorListener(ColorEnvelopeListener {
                 envelope, _ ->  selectedColor = "#" + envelope.hexCode
         })
 
