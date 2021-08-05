@@ -2,7 +2,7 @@
     android:id="@+id/delete"
     android:shape="rectangle"
     android:thickness="0dp">
-    <solid android:color="@color/red" />
+    <solid android:color="@color/colorDelete" />
     <corners android:radius="8.0dip" />
 
 </shape>

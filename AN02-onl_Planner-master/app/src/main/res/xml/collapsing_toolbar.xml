@@ -38,7 +38,7 @@
                 app:motionTarget="@id/toolbar">
                 <CustomAttribute
                     app:attributeName="backgroundColor"
-                    app:customColorValue="#2929a3" />
+                    app:customColorValue="@color/colorToolBar" />
             </KeyAttribute>
         </KeyFrameSet>
     </Transition>
@@ -91,7 +91,7 @@
             app:layout_constraintTop_toTopOf="@id/toolbar_image">
             <CustomAttribute
                 app:attributeName="backgroundColor"
-                app:customColorValue="#2929a3" />
+                app:customColorValue="@color/colorToolBar" />
         </Constraint>
 
     </ConstraintSet>

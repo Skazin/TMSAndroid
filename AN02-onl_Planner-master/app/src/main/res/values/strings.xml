@@ -26,16 +26,25 @@
     <string name="fragment_edit_title">Edit note</string>
 
     <string name="fragment_main_add_new_note">Add New Note</string>
-    <string name="fragment_main_cloud_failed">Cloud export failed</string>
-    <string name="fragment_main_cloud_no_notes">There\'s no clouded notes</string>
-    <string name="fragment_main_cloud_no_new_notes">There\'s no new notes</string>
-    <string name="fragment_main_cloud_success">Import successfully done</string>
+    <string name="fragment_main_no_network">Please, check your internet connection</string>
+    <string name="fragment_main_cloud_choose_cloud_action">Choose cloud action</string>
+    <string name="fragment_main_cloud_dialog">Cloud actions</string>
+    <string name="fragment_main_cloud_export">Export notes</string>
+    <string name="fragment_main_cloud_export_failed">Cloud export failed</string>
+    <string name="fragment_main_cloud_export_no_notes">There\'s no notes for export</string>
+    <string name="fragment_main_cloud_export_success">Export successfully done</string>
+    <string name="fragment_main_cloud_import">Import notes</string>
+    <string name="fragment_main_cloud_import_failed">Cloud import failed</string>
+    <string name="fragment_main_cloud_import_success">Import successfully done</string>
+    <string name="fragment_main_cloud_import_no_notes">There\'s no clouded notes</string>
+    <string name="fragment_main_cloud_import_no_new_notes">There\'s no new notes</string>
     <string name="fragment_main_title">Список дел</string>
 
     <string name="fragment_settings_action_NO">Nope</string>
     <string name="fragment_settings_action_YES">Yep!</string>
     <string name="fragment_settings_button_change_user_name">Сменить</string>
     <string name="fragment_settings_change_user_name">Сменить имя пользователя</string>
+    <string name="fragment_settings_dark_theme">Темная тема</string>
     <string name="fragment_settings_delete_user">Удалить пользователя</string>
     <string name="fragment_settings_delete_user_request_title">Log Out</string>
     <string name="fragment_settings_exit">Выйти</string>
@@ -44,4 +53,6 @@
     <string name="fragment_settings_pick_delete_action">Do you really want to delete user?</string>
     <string name="fragment_settings_title">Учетная запись</string>
     <string name="fragment_settings_user_name">Учетная запись</string>
+    <string name="light_theme">Светлая тема</string>
+    <string name="dark_theme">Темная тема</string>
 </resources>

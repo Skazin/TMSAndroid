@@ -1,9 +1,12 @@
 package io.techmeskills.an02onl_plannerapp.screen.settings
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,10 +18,18 @@ import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 
+const val PREFS_NAME = "theme_prefs"
+const val KEY_THEME = "prefs.theme"
+const val THEME_UNDEFINED = -1
+const val THEME_LIGHT = 0
+const val THEME_DARK = 1
+
 class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
+
 
     override val viewBinding: FragmentSettingsBinding by viewBinding()
     private val viewModel: SettingsViewModel by viewModel()
+    private val sharedPrefs by lazy {  activity?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
 
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +54,18 @@ class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fr
             } else {
                 Toast.makeText(requireContext(), "Please, enter new user's name", Toast.LENGTH_LONG)
                     .show()
+            }
+        }
+
+        when(getSavedTheme()) {
+            THEME_LIGHT ->  viewBinding.themeLight.isChecked = true
+            THEME_DARK -> viewBinding.themeDark.isChecked = true
+        }
+
+        viewBinding.themeGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId) {
+                R.id.themeLight -> setTheme(AppCompatDelegate.MODE_NIGHT_NO, THEME_LIGHT)
+                R.id.themeDark -> setTheme(AppCompatDelegate.MODE_NIGHT_YES, THEME_DARK)
             }
         }
     }
@@ -84,4 +107,15 @@ class SettingsFragment : NavigationFragment<FragmentSettingsBinding>(R.layout.fr
                     dialog.cancel()
                 }.show()
     }
+
+    private fun setTheme(themeMode: Int, prefsMode: Int) {
+        AppCompatDelegate.setDefaultNightMode(themeMode)
+        saveTheme(prefsMode)
+    }
+
+    private fun saveTheme(theme: Int) = sharedPrefs?.edit()?.putInt(KEY_THEME, theme)?.apply()
+    private fun getSavedTheme() = sharedPrefs?.getInt(
+        io.techmeskills.an02onl_plannerapp.KEY_THEME,
+        io.techmeskills.an02onl_plannerapp.THEME_UNDEFINED
+    )
 }

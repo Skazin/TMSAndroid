@@ -12,6 +12,7 @@ import io.techmeskills.an02onl_plannerapp.databinding.FragmentNewNoteBinding
 import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.CustomDayPicker
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
+import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -36,6 +37,8 @@ class NewFragment : NavigationFragment<FragmentNewNoteBinding>(R.layout.fragment
                 envelope, _ ->  selectedColor = "#" + envelope.hexCode
         })
 
+        viewBinding.colorSet.attachBrightnessSlider(viewBinding.brightnessSlider)
+
 
 
         viewBinding.addButton.setOnClickListener {
@@ -48,7 +51,7 @@ class NewFragment : NavigationFragment<FragmentNewNoteBinding>(R.layout.fragment
                             notificationOn = viewBinding.notificationCheck.isChecked,
                             dateOfBirth = calendar.timeInMillis,
                             backgroundColor = selectedColor,
-                            notePinned = viewBinding.notePin.isChecked
+                            notePinned = false
                     )
                 )
                 findNavController().popBackStack()
@@ -75,7 +78,7 @@ class NewFragment : NavigationFragment<FragmentNewNoteBinding>(R.layout.fragment
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
-        viewBinding.toolbar.setPadding(0, top, 0, 0)
+        viewBinding.toolbar.setVerticalMargin(marginTop = top)
     }
 
     override val backPressedCallback: OnBackPressedCallback

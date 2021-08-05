@@ -3,6 +3,7 @@ package io.techmeskills.an02onl_plannerapp
 import android.app.AlarmManager
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import io.techmeskills.an02onl_plannerapp.cloud.IApi
 import io.techmeskills.an02onl_plannerapp.database.DatabaseConstructor
 import io.techmeskills.an02onl_plannerapp.database.NotesDatabase
@@ -13,6 +14,7 @@ import io.techmeskills.an02onl_plannerapp.screen.main.MainViewModel
 import io.techmeskills.an02onl_plannerapp.screen.edit.EditFragmentViewModel
 import io.techmeskills.an02onl_plannerapp.screen.newnote.NewFragmentViewModel
 import io.techmeskills.an02onl_plannerapp.screen.settings.SettingsViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -20,14 +22,17 @@ import org.koin.dsl.module
 
 class PlannerApp : Application() {
 
+    @ExperimentalCoroutinesApi
     override fun onCreate() {
         super.onCreate()
         startKoin {
             androidContext(this@PlannerApp)
             modules(listOf(viewModels, storageModule, repositoryModule, cloudModule, systemModule))
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
     }
 
+    @ExperimentalCoroutinesApi
     private val viewModels = module {
         viewModel { MainViewModel(get(), get()) }
         viewModel { NewFragmentViewModel(get(), get()) }

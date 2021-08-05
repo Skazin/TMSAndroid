@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
     app:layoutDescription="@xml/collapsing_toolbar">
 
     <ImageView
@@ -23,22 +22,14 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/ToolBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_image"
         app:layout_constraintStart_toStartOf="parent"
         app:title="@string/fragment_main_title"
-        android:background="#2929a3"
-        app:titleTextColor="@color/white">
+        >
 
-        <ImageView
-            android:id="@+id/userSettings"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="end"
-            android:scaleType="center"
-            android:src="@drawable/ic_user_settings"
-            android:contentDescription="@null"/>
         <ImageView
             android:id="@+id/cloudImport"
             android:layout_width="?attr/actionBarSize"
@@ -47,79 +38,64 @@
             android:scaleType="center"
             android:src="@drawable/ic_cloud_download"
             android:contentDescription="@null"
-            app:tint="@color/white"/>
-        <ImageView
-            android:id="@+id/cloudExport"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="end"
-            android:scaleType="center"
-            android:src="@drawable/ic_cloud_upload"
-            android:contentDescription="@null"
-            app:tint="@color/white"/>
-
+            app:tint="@color/transparent"/>
     </androidx.appcompat.widget.Toolbar>
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressIndicator"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
     <SearchView
         android:id="@+id/searchCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         android:iconifiedByDefault="false"
         android:queryHint="@string/query_hint"/>
 
     <ImageView
         android:id="@+id/sortCards"
+        style="@style/ImageViewStyle"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:layout_constraintStart_toEndOf="@id/searchCard"
-        app:layout_constraintTop_toBottomOf="@id/progressIndicator"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="@id/searchCard"
         android:layout_marginStart="10dp"
-        android:src="@drawable/ic_sort"
-        app:tint="#2929a3"/>
+        android:src="@drawable/ic_sort" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:indeterminate="true"
+        app:layout_constraintTop_toBottomOf="@id/searchCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:overScrollMode="never"
         android:paddingTop="24dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchCard"
         tools:listitem="@layout/recyclerview_item"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/addNewNote"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationBar"
+        app:menu="@menu/navigation_menu"
+        style="@style/BottomNavigationViewStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/purple_500"
-        android:elevation="8dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/fragment_main_add_new_note"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:icon="@drawable/ic_add"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

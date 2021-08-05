@@ -1,5 +1,6 @@
 package io.techmeskills.an02onl_plannerapp.screen.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import io.techmeskills.an02onl_plannerapp.R
 import io.techmeskills.an02onl_plannerapp.databinding.FragmentLoginBinding
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.navigateSafe
+import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment_login) {
@@ -57,5 +59,7 @@ class LoginFragment : NavigationFragment<FragmentLoginBinding>(R.layout.fragment
         }
     }
 
-    override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) = Unit
+    override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
+        viewBinding.toolbar.setVerticalMargin(marginTop = top)
+    }
 }

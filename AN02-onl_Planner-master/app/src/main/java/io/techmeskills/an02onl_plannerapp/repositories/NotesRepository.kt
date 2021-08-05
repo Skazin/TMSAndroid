@@ -99,4 +99,17 @@ class NotesRepository(
                 notificationRepository.setNotification(newNote)
             }
         }
+
+        suspend fun pinNote(note: Note) {
+            withContext(Dispatchers.IO) {
+                notesDao.pinNote(note.id, note.notePinned.not())
+            }
+        }
+
+        suspend fun sortByPin() : List<Note> {
+            return withContext(Dispatchers.IO) {
+                val user = runBlocking { appSettings.userName() }
+                 return@withContext notesDao.sortedByPinNotes(user)
+            }
+        }
 }

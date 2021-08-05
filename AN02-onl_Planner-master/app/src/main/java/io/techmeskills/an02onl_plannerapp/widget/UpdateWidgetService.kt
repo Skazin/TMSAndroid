@@ -5,9 +5,11 @@ import android.content.ComponentName
 import android.content.Intent
 import androidx.core.app.JobIntentService
 import io.techmeskills.an02onl_plannerapp.repositories.NotesRepository
+import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+@KoinApiExtension
 class UpdateWidgetService : JobIntentService(), KoinComponent {
 
     private val notesRepository: NotesRepository by inject()

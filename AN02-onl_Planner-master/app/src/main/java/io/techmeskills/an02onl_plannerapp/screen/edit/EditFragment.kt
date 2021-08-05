@@ -1,9 +1,9 @@
 package io.techmeskills.an02onl_plannerapp.screen.edit
 
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
@@ -16,12 +16,15 @@ import io.techmeskills.an02onl_plannerapp.models.Note
 import io.techmeskills.an02onl_plannerapp.support.NavigationFragment
 import io.techmeskills.an02onl_plannerapp.support.setVerticalMargin
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
 import java.util.*
 
 class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_edit) {
 
+
     override val viewBinding: FragmentEditBinding by viewBinding()
     private val calendar = Calendar.getInstance()
+    private val dateFormatter = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
     private var selectedColor: String = ""
     private var selectedDate: Calendar = Calendar.getInstance().apply { time = Date() }
     private val args: EditFragmentArgs by navArgs()
@@ -29,9 +32,11 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        viewBinding.colorSet.attachBrightnessSlider(viewBinding.brightnessSlider)
+
         viewBinding.timePicker.setIs24HourView(true)
 
-        viewBinding.colorSet.setColorListener(ColorEnvelopeListener() {
+        viewBinding.colorSet.setColorListener(ColorEnvelopeListener {
                 envelope, _ ->  selectedColor = "#" + envelope.hexCode
         })
 
@@ -49,7 +54,7 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                                 notificationOn = viewBinding.notificationCheck.isChecked,
                                 dateOfBirth = calendar.timeInMillis,
                                 backgroundColor = selectedColor,
-                                notePinned = viewBinding.notePin.isChecked
+                                notePinned = it.notePinned
                         )
                 )
                 }
@@ -59,6 +64,23 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
                     .show()
             }
         }
+
+        viewBinding.shareButton.setColorFilter(Color.WHITE)
+
+        viewBinding.shareButton.setOnClickListener {
+            if (viewBinding.etNote.text.isNotBlank()) {
+                val shareIntent = Intent.createChooser(Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "Заметка: ${viewBinding.etNote.text}, дата: ${dateFormatter.format(selectedDate.timeInMillis)}")
+                    type = "text/plain"
+                }, null)
+                startActivity(shareIntent)
+            } else {
+                Toast.makeText(requireContext(), "Please, enter your note", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+
     }
 
     override fun onInsetsReceived(top: Int, bottom: Int, hasKeyboard: Boolean) {
@@ -73,3 +95,4 @@ class EditFragment : NavigationFragment<FragmentEditBinding>(R.layout.fragment_e
             }
         }
 }
+
